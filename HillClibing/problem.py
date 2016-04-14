@@ -11,7 +11,7 @@ class Problem():
 	def objective_function(x):
 		element_one = -2 * math.pow(((x - 0.1) / 0.9), 2)
 		element_two = math.pow(math.sin(5 * math.pi * x), 6)
-		result = 2 * (math.exp(element_one * element_two))
+		result = math.pow(2, element_one) * element_two
 		return result
 
 	def setScore(self, value):
