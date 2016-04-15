@@ -8,13 +8,16 @@ class HillClibing:
 		self.max_iterations = max_iterations
 		self.problem = problem
 
-	# Nota: limitar o pertubador para o limitante
-	@staticmethod
-	def randomPertubator(value, maximize):
+	def randomPertubator(self, value, maximize):
+		min_interval = self.problem.interval[0]
+		max_interval = self.problem.interval[1]
+		
 		if maximize is True:
-			return value + random.random()
+			pertubation = random.uniform(0, (max_interval - value))
+			return value + pertubation
 		else:
-			return value - random.random()
+			pertubation = random.uniform(0, (value - min_interval))
+			return value - pertubation
 
 	def run(self):
 		maximization = self.problem.maximization
