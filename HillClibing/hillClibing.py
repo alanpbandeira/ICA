@@ -2,7 +2,10 @@ from problem import Problem
 import random
 
 class HillClibing:
-	"""docstring for HillClibing"""
+	"""docstring for HillClibing
+	The @return pattern for the solution is a tuple in the 
+	following model: (number of iterations, best result, best result score)
+	"""
 	
 	def __init__(self, max_iterations, problem):
 		self.max_iterations = max_iterations

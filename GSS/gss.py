@@ -7,7 +7,6 @@ def funcOne(x):
     result = math.pow(x, 2) - (4 * x) + 3
     return result
 
-
 # Computa a função referente ao segundo item
 #
 def funcTwo(x):
