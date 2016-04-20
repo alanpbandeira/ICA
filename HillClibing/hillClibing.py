@@ -7,6 +7,8 @@ class HillClibing:
 	following model: (number of iterations, best result, best result score)
 	"""
 	
+	result_list = list()
+
 	def __init__(self, max_iterations, problem):
 		self.max_iterations = max_iterations
 		self.problem = problem
@@ -24,8 +26,8 @@ class HillClibing:
 
 	def run(self):
 		maximization = self.problem.maximization
-		candidate_value = random.uniform(self.problem.interval[0], self.problem.interval[1])
-		candidate_score = self.problem.setScore(candidate_value)
+		candidate_value  = random.uniform(self.problem.interval[0], self.problem.interval[1])
+		candidate_score  = self.problem.setScore(candidate_value)
 			
 		best_result = candidate_value
 		best_score  = candidate_score
@@ -43,6 +45,8 @@ class HillClibing:
 				improvement = False
 
 			iterations += 1
+		
+		self.result_list.append((best_result, self.problem.setScore(best_result)))
 
 		return (iterations, best_result, self.problem.setScore(best_result))
 		
