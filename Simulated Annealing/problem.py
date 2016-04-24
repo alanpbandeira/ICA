@@ -16,18 +16,3 @@ class Problem():
 
 	def setScore(self, value):
 		return self.objective_function(value)
-
-	def evaluate(self, current_value, candidate_value):
-		candidate_score = self.setScore(candidate_value)
-		current_score   = self.setScore(current_value)
-
-		if self.maximization:
-			if (candidate_score > current_score):
-				return candidate_value
-			else:
-				return current_value
-		else:
-			if (candidate_score < current_score):
-				return candidate_value
-			else:
-				return current_value

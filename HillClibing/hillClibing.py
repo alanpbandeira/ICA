@@ -8,24 +8,42 @@ class HillClibing:
 	"""
 	
 	result_list = list()
+	result_evolution_list = list()
 
 	def __init__(self, max_iterations, problem):
 		self.max_iterations = max_iterations
 		self.problem = problem
 
-	def randomPertubator(self, value, maximize):
-		min_interval = self.problem.interval[0]
-		max_interval = self.problem.interval[1]
-		
-		if maximize is True:
-			pertubation = random.uniform(0, (max_interval - value))
-			return value + pertubation
+	def randomPertubator(self, value, increase):		
+		# This can be used for a much wide pertubation
+		# uncoment to use
+		#
+		#pertubation_range = self.problem.interval[1] - self.problem.interval[0]
+		#incrementation_range = pertubation_range - (value - self.problem.interval[0])
+		#decrementation_range = pertubation_range - incrementation_range
+
+		if increase:
+			pertubation = random.uniform(0, 0.01)
+			new_value   = value + pertubation
 		else:
-			pertubation = random.uniform(0, (value - min_interval))
-			return value - pertubation
+			pertubation = random.uniform(0, 0.01)
+			new_value   = value - pertubation
+
+		return new_value
+
+	def evaluate(self, current_value, candidate_value_one, candidate_value_two):
+		score_list = list()
+
+		score_list.append((self.problem.setScore(current_value), current_value))
+		score_list.append((self.problem.setScore(candidate_value_one), candidate_value_one))
+		score_list.append((self.problem.setScore(candidate_value_two), candidate_value_two))
+
+		if self.problem.maximization:
+			return max(score_list)[1]
+		else:
+			return min(score_list)[1]
 
 	def run(self):
-		maximization = self.problem.maximization
 		candidate_value  = random.uniform(self.problem.interval[0], self.problem.interval[1])
 		candidate_score  = self.problem.setScore(candidate_value)
 			
@@ -34,17 +52,22 @@ class HillClibing:
 		improvement = True
 		iterations  = 1
 		
-		while((iterations <= self.max_iterations) and improvement):
+		while((iterations < self.max_iterations) and improvement):
 
-			candidate_value = self.randomPertubator(candidate_value, maximization)
-			candidate_score = self.problem.setScore(candidate_value)
+			candidate_value_one = self.randomPertubator(best_result, True)
+			candidate_value_two = self.randomPertubator(best_result, False)
 
-			best_result = self.problem.evaluate(candidate_value, best_result)
+			best_candidate = self.evaluate(best_result, candidate_value_one, candidate_value_two)
 
-			if best_result != candidate_value:
+			if best_candidate != best_result:
+				best_result = best_candidate
+			else:
 				improvement = False
 
+			best_score = self.problem.setScore(best_result)
+
 			iterations += 1
+			self.result_evolution_list.append((best_result, best_score))
 		
 		self.result_list.append((best_result, self.problem.setScore(best_result)))
 
