@@ -73,7 +73,6 @@ class SimulatedAnnealing():
 
 	def run(self, max_iterations):
 		initial_temperature = self.setInitTemperature(100)
-		print (initial_temperature)
 		
 		temperature = initial_temperature
 		interval    = self.problem.interval
