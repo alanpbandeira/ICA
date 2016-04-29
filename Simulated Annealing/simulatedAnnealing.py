@@ -1,8 +1,8 @@
-from problem import Problem
-import random, math
+import random
+import math
 
 
-class SimulatedAnnealing():
+class SimulatedAnnealing:
     """docstring for SimulatedAnnealing"""
 
     result_list = list()
@@ -36,6 +36,17 @@ class SimulatedAnnealing():
         return new_value
 
     def run(self, max_iterations, initial_temperature, trial):
+        """
+        > Desc: Method that executes the optimization over the defined problem.
+        >
+        > @param -> max_iterations: Represents the max epochs of the annealing process.
+        > @param -> initial_temperature: Represents the initial temperature of the annealing process.
+        > @param -> trial: Boolean value that set if the optimization process is a trial, to determinate
+        > an initial temperature
+        > @return -> Case trial is True: Initial temperature calculated over an trial optimization
+        > @return -> Case trial is False: A tuple defined as (epochs executed, best solution, best solution's score.
+
+        """
         candidate_list = list()
         down_hill_temperature_list = list()
 
@@ -47,7 +58,7 @@ class SimulatedAnnealing():
         epochs = 1
         jump_count = 0
 
-        while epochs < max_iterations:
+        while epochs < max_iterations and self.final_temperature <= temperature:
             for x in range(10):
                 candidate_value = self.randomPertubator(best_value)
                 candidate_score = self.problem.setScore(candidate_value)
@@ -55,17 +66,16 @@ class SimulatedAnnealing():
 
             for candidate in candidate_list:
                 score_variation = best_score - candidate[0]
+                cooling_factor = -score_variation / temperature
 
                 if score_variation < 0:
                     best_value = candidate[1]
                     best_score = candidate[0]
-                    cooling_factor = -score_variation / temperature
                 elif math.exp(cooling_factor) <= random.uniform(0, 1):
                     best_value = candidate[1]
                     best_score = candidate[0]
                     jump_count += 1
-                    down_hill_temperature_list.append(candidate_score)
-                    cooling_factor = -score_variation / temperature
+                    down_hill_temperature_list.append(candidate[0])
 
             temperature = self.coolingFunction(temperature, initial_temperature, max_iterations)
             epochs += 1
