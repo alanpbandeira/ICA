@@ -1,75 +1,75 @@
-from problem import Problem
 import random
 
+
 class HillClibing:
-	"""docstring for HillClibing
+    """docstring for HillClibing
 	The @return pattern for the solution is a tuple in the 
 	following model: (number of iterations, best result, best result score)
+
 	"""
-	
-	result_list = list()
-	result_evolution_list = list()
 
-	def __init__(self, max_iterations, problem):
-		self.max_iterations = max_iterations
-		self.problem = problem
+    result_list = list()
+    result_evolution_list = list()
 
-	def randomPertubator(self, value, increase):		
-		# This can be used for a much wide pertubation
-		# uncoment to use
-		#
-		#pertubation_range = self.problem.interval[1] - self.problem.interval[0]
-		#incrementation_range = pertubation_range - (value - self.problem.interval[0])
-		#decrementation_range = pertubation_range - incrementation_range
+    def __init__(self, max_iterations, problem):
+        self.max_iterations = max_iterations
+        self.problem = problem
 
-		if increase:
-			pertubation = random.uniform(0, 0.01)
-			new_value   = value + pertubation
-		else:
-			pertubation = random.uniform(0, 0.01)
-			new_value   = value - pertubation
+    def randomPertubator(self, value, increase):
+        # This can be used for a much wide pertubation
+        # uncoment to use
+        #
+        # pertubation_range = self.problem.interval[1] - self.problem.interval[0]
+        # incrementation_range = pertubation_range - (value - self.problem.interval[0])
+        # decrementation_range = pertubation_range - incrementation_range
 
-		return new_value
+        if increase:
+            pertubation = random.uniform(0, 0.01)
+            new_value = value + pertubation
+        else:
+            pertubation = random.uniform(0, 0.01)
+            new_value = value - pertubation
 
-	def evaluate(self, current_value, candidate_value_one, candidate_value_two):
-		score_list = list()
+        return new_value
 
-		score_list.append((self.problem.setScore(current_value), current_value))
-		score_list.append((self.problem.setScore(candidate_value_one), candidate_value_one))
-		score_list.append((self.problem.setScore(candidate_value_two), candidate_value_two))
+    def evaluate(self, current_value, candidate_value_one, candidate_value_two):
+        score_list = list()
 
-		if self.problem.maximization:
-			return max(score_list)[1]
-		else:
-			return min(score_list)[1]
+        score_list.append((self.problem.setScore(current_value), current_value))
+        score_list.append((self.problem.setScore(candidate_value_one), candidate_value_one))
+        score_list.append((self.problem.setScore(candidate_value_two), candidate_value_two))
 
-	def run(self):
-		candidate_value  = random.uniform(self.problem.interval[0], self.problem.interval[1])
-		candidate_score  = self.problem.setScore(candidate_value)
-			
-		best_result = candidate_value
-		best_score  = candidate_score
-		improvement = True
-		iterations  = 1
-		
-		while((iterations < self.max_iterations) and improvement):
+        if self.problem.maximization:
+            return max(score_list)[1]
+        else:
+            return min(score_list)[1]
 
-			candidate_value_one = self.randomPertubator(best_result, True)
-			candidate_value_two = self.randomPertubator(best_result, False)
+    def run(self):
+        candidate_value = random.uniform(self.problem.interval[0], self.problem.interval[1])
+        candidate_score = self.problem.setScore(candidate_value)
 
-			best_candidate = self.evaluate(best_result, candidate_value_one, candidate_value_two)
+        best_result = candidate_value
+        best_score = candidate_score
+        improvement = True
+        iterations = 1
 
-			if best_candidate != best_result:
-				best_result = best_candidate
-			else:
-				improvement = False
+        while ((iterations < self.max_iterations) and improvement):
 
-			best_score = self.problem.setScore(best_result)
+            candidate_value_one = self.randomPertubator(best_result, True)
+            candidate_value_two = self.randomPertubator(best_result, False)
 
-			iterations += 1
-			self.result_evolution_list.append((best_result, best_score))
-		
-		self.result_list.append((best_result, self.problem.setScore(best_result)))
+            best_candidate = self.evaluate(best_result, candidate_value_one, candidate_value_two)
 
-		return (iterations, best_result, self.problem.setScore(best_result))
-		
+            if best_candidate != best_result:
+                best_result = best_candidate
+            else:
+                improvement = False
+
+            best_score = self.problem.setScore(best_result)
+
+            iterations += 1
+            self.result_evolution_list.append((best_result, best_score))
+
+        self.result_list.append((best_result, self.problem.setScore(best_result)))
+
+        return (iterations, best_result, self.problem.setScore(best_result))

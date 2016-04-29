@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="05d8c5e0-b15a-4cf0-844f-dd18d21498ab" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Alan.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Alan.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Simulated Annealing/Plotter/plotter.py" afterPath="$PROJECT_DIR$/Simulated Annealing/Plotter/plotter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Simulated Annealing/main.py" afterPath="$PROJECT_DIR$/Simulated Annealing/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing - data.txt" afterPath="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing - data.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing.py" afterPath="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HillClibing/hillClibing.py" afterPath="$PROJECT_DIR$/HillClibing/hillClibing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HillClibing/iteratedHillClibing.py" afterPath="$PROJECT_DIR$/HillClibing/iteratedHillClibing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HillClibing/problem.py" afterPath="$PROJECT_DIR$/HillClibing/problem.py" />
     </list>
     <ignored path="ICA.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +26,50 @@
     <favorites_list name="ICA" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="problem.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HillClibing/problem.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HillClibing/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="iteratedHillClibing.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HillClibing/iteratedHillClibing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hillClibing.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HillClibing/hillClibing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,6 +82,9 @@
         <option value="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing.py" />
         <option value="$PROJECT_DIR$/Simulated Annealing/simulatedAnnealing - data.txt" />
         <option value="$PROJECT_DIR$/Simulated Annealing/main.py" />
+        <option value="$PROJECT_DIR$/HillClibing/iteratedHillClibing.py" />
+        <option value="$PROJECT_DIR$/HillClibing/hillClibing.py" />
+        <option value="$PROJECT_DIR$/HillClibing/problem.py" />
       </list>
     </option>
   </component>
@@ -296,9 +341,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="80" y="43" width="1734" height="937" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15859285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15859285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -338,7 +383,7 @@
         <state relative-caret-position="75">
           <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -356,7 +401,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -374,7 +419,7 @@
         <state relative-caret-position="285">
           <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -394,7 +439,7 @@
         <state relative-caret-position="18">
           <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -403,6 +448,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HillClibing/hillClibing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HillClibing/iteratedHillClibing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HillClibing/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HillClibing/problem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
           <folding />
         </state>
       </provider>
