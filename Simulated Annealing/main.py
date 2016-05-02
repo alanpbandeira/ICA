@@ -8,7 +8,7 @@ problem_solver = SimulatedAnnealing(my_problem, 0.001)
 
 initial_temperature = problem_solver.run(100, 1, True)
 
-print initial_temperature
+print (initial_temperature)
 
 mplt = Plotter(my_problem)
 mplt.samplePlot((0, 1))
