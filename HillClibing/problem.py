@@ -24,10 +24,20 @@ class Problem():
 
         return result
 
+    @staticmethod
+    def objective_function_c(x, y):
+        temp = x - math.pow(y, 2)
+        element_one = 100 * math.pow(temp, 2)
+        element_two = math.pow((1 - x), 2)
+
+        result = element_one + element_two
+
+        return result
+
     def setScore(self, value, function):
         if function is 'a':
             return self.objective_function_a(value[0])
         elif function is 'b':
             return self.objective_function_b(value[0], value[1])
         elif function is 'c':
-            print ('nor ready yet')
+            return self.objective_function_c(value[0], value[1])
