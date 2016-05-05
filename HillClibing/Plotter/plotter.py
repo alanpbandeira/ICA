@@ -4,23 +4,39 @@ import numpy as np
 plt.style.use('ggplot')
 
 
-class Plotter():
-    """docstring for Plotter"""
+class Plotter:
+    """
+    --
+    @method: __init__ -> Initialize the object based on received parameters.
+    @Param: problem -> Represents the optimization problem to be plotted.
+    --
+
+    --
+    @Method: samplePlot -> Draws the function graph for a generic view.
+    @Parameter: delta -> Represents the difference between values for the numpy array creation.
+    @Parameter: function -> Represents the function to be plotted.
+    --
+
+    --
+    @Method: pointPlot -> Plot the optimization values over the function graph.
+    @Parameter: x_value -> Array of x values.
+    @Parameter:
+    """
 
     def __init__(self, problem):
         self.problem = problem
+        self.axis_range = self.problem.interval
 
-    def samplePlot(self, delta, function, dimensions):
-        if dimensions is 2:
-            range = self.problem.interval
-            x_axis = np.arange(range[0], range[1], delta)
+    def samplePlot(self, delta, function):
+        if len(self.axis_range) is 1:
+            x_axis = np.arange(self.axis_range[0][0], self.axis_range[0][1], delta)
 
             y_axis = np.array([self.problem.setScore(x, 'a')] for x in x_axis)
 
             plt.plot(x_axis, y_axis, 'b')
-        elif dimensions is 3:
-            range = self.problem.interval
-            x_axis = y_axis = np.arange(range[0], range[1], delta)
+        elif len(self.axis_range) is 2:
+            x_axis = np.arange(self.axis_range[0][0], self.axis_range[0][1], delta)
+            y_axis = np.arange(self.axis_range[1][0], self.axis_range[1][1], delta)
 
             X, Y = np.meshgrid(x_axis, y_axis)
 
@@ -32,10 +48,5 @@ class Plotter():
             ax = fig.gca(projection='3d')
             ax.plot_surface(X, Y, Z, rstride=4, cstride=4, color='b')
 
-
-
-
-
-    def pointPlot(self, x_value, y_value, y_interval):
+    def pointPlot(self, x_value, y_value):
         plt.plot(x_value, y_value, 'ro')
-        plt.axis([self.problem.interval[0], self.problem.interval[1], y_interval[0], y_interval[1]])
