@@ -1,12 +1,28 @@
 import math
+# TO TEST!!!
 
 
-class Problem():
-    """docstring for Problem"""
+class Problem:
+    """
 
-    def __init__(self, maximization, interval):
+    ---
+    __init__ -> initialize the problem object using the given parameters.
+    @:parameter maximization: Set the problem as a maximization or minimization problem.
+    @:parameter interval: Set the optimization function interval.
+    @:parameter function: Select the function to be used.
+    ---
+
+    ---
+    setScore -> Calculate the score using the selected function.
+    @:parameter value: Represents a tuple of values to used for the function.
+    ---
+
+    """
+
+    def __init__(self, maximization, interval, function):
         self.maximization = maximization
         self.interval = interval
+        self.function = function
 
     @staticmethod
     def objective_function_a(x):
@@ -34,10 +50,10 @@ class Problem():
 
         return result
 
-    def setScore(self, value, function):
-        if function is 'a':
+    def setScore(self, value):
+        if self.function is 'a':
             return self.objective_function_a(value[0])
-        elif function is 'b':
+        elif self.function is 'b':
             return self.objective_function_b(value[0], value[1])
-        elif function is 'c':
+        elif self.function is 'c':
             return self.objective_function_c(value[0], value[1])

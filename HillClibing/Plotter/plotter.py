@@ -19,7 +19,7 @@ class Plotter:
 
     --
     @Method: pointPlot -> Plot the optimization values over the function graph.
-    @Parameter: x_value -> Array of x values.
+    @Parameter: plot_array -> Tuples of arrays to be plotted.
     @Parameter:
     """
 
@@ -48,5 +48,8 @@ class Plotter:
             ax = fig.gca(projection='3d')
             ax.plot_surface(X, Y, Z, rstride=4, cstride=4, color='b')
 
-    def pointPlot(self, x_value, y_value):
-        plt.plot(x_value, y_value, 'ro')
+    def pointPlot(self, plot_array):
+        if len(self.axis_range) is 1:
+            plt.plot(plot_array[0], plot_array[1], 'ro')
+        elif len(self.axis_range) is 2:
+            plt.plot(plot_array[0], plot_array[1], plot_array[2], 'ro')
