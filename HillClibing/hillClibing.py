@@ -2,11 +2,12 @@ import random
 
 
 class HillClibing:
-    """docstring for HillClibing
-	The @return pattern for the solution is a tuple in the 
-	following model: (number of iterations, best result, best result score)
+    """
 
-	"""
+    The @return pattern for the solution is a tuple in the
+    following model: (number of iterations, best result, best result score)
+
+    """
 
     result_list = list()
     result_evolution_list = list()
@@ -15,14 +16,8 @@ class HillClibing:
         self.max_iterations = max_iterations
         self.problem = problem
 
-    def randomPertubator(self, value, increase):
-        # This can be used for a much wide pertubation
-        # uncoment to use
-        #
-        # pertubation_range = self.problem.interval[1] - self.problem.interval[0]
-        # incrementation_range = pertubation_range - (value - self.problem.interval[0])
-        # decrementation_range = pertubation_range - incrementation_range
-
+    @staticmethod
+    def randomPertubator(value, increase):
         if increase:
             pertubation = random.uniform(0, 0.01)
             new_value = value + pertubation
@@ -46,14 +41,12 @@ class HillClibing:
 
     def run(self):
         candidate_value = random.uniform(self.problem.interval[0], self.problem.interval[1])
-        candidate_score = self.problem.setScore(candidate_value)
 
         best_result = candidate_value
-        best_score = candidate_score
         improvement = True
         iterations = 1
 
-        while ((iterations < self.max_iterations) and improvement):
+        while iterations < self.max_iterations and improvement:
 
             candidate_value_one = self.randomPertubator(best_result, True)
             candidate_value_two = self.randomPertubator(best_result, False)
@@ -72,4 +65,4 @@ class HillClibing:
 
         self.result_list.append((best_result, self.problem.setScore(best_result)))
 
-        return (iterations, best_result, self.problem.setScore(best_result))
+        return iterations, best_result, self.problem.setScore(best_result)

@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-
-plt.style.use('ggplot')
 
 
 class Plotter:
@@ -27,20 +26,19 @@ class Plotter:
         self.problem = problem
         self.axis_range = self.problem.interval
 
-    def samplePlot(self, delta, function):
-        if len(self.axis_range) is 1:
-            x_axis = np.arange(self.axis_range[0][0], self.axis_range[0][1], delta)
-
-            y_axis = np.array([self.problem.setScore(x, 'a')] for x in x_axis)
+    def samplePlot(self, delta):
+        if not isinstance(self.axis_range[0], tuple):
+            x_axis = np.arange(self.axis_range[0], self.axis_range[1], delta)
+            y_axis = np.array([self.problem.setScore(x) for x in x_axis])
 
             plt.plot(x_axis, y_axis, 'b')
-        elif len(self.axis_range) is 2:
+        else:
             x_axis = np.arange(self.axis_range[0][0], self.axis_range[0][1], delta)
             y_axis = np.arange(self.axis_range[1][0], self.axis_range[1][1], delta)
 
             X, Y = np.meshgrid(x_axis, y_axis)
 
-            z_axis = np.array([self.problem.setScore((x,y), function) for x, y in zip(np.ravel(X), np.ravel(Y))])
+            z_axis = np.array([self.problem.setScore((x, y)) for x, y in zip(np.ravel(X), np.ravel(Y))])
 
             Z = z_axis.reshape(X.shape)
 
@@ -49,7 +47,7 @@ class Plotter:
             ax.plot_surface(X, Y, Z, rstride=4, cstride=4, color='b')
 
     def pointPlot(self, plot_array):
-        if len(self.axis_range) is 1:
+        if len(self.axis_range) is 2:
             plt.plot(plot_array[0], plot_array[1], 'ro')
-        elif len(self.axis_range) is 2:
+        elif len(self.axis_range) is 3:
             plt.plot(plot_array[0], plot_array[1], plot_array[2], 'ro')

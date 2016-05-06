@@ -14,7 +14,9 @@ class Problem:
 
     ---
     setScore -> Calculate the score using the selected function.
-    @:parameter value: Represents a tuple of values to used for the function.
+    @:parameter value: Represents the values to be used in the function.
+    @:type double/float for two dimensional function.
+    @:type n_size tuple for a n_dimensional function.
     ---
 
     """
@@ -34,9 +36,12 @@ class Problem:
     @staticmethod
     def objective_function_b(x, y):
         element_one = math.exp(-(math.pow(x, 2) + math.pow(y, 2)))
-        element_two = 2 * math.exp(math.pow((x - 1.7), 2) + math.pow((y - 1.7), 2))
 
-        result = math.exp(element_one + element_two)
+        a = math.pow((x - 1.7), 2)
+        b = math.pow((y - 1.7), 2)
+        element_two = 2 * math.exp(a + b)
+
+        result = element_one + element_two
 
         return result
 
@@ -52,7 +57,7 @@ class Problem:
 
     def setScore(self, value):
         if self.function is 'a':
-            return self.objective_function_a(value[0])
+            return self.objective_function_a(value)
         elif self.function is 'b':
             return self.objective_function_b(value[0], value[1])
         elif self.function is 'c':
