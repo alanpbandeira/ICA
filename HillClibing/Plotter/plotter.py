@@ -47,7 +47,7 @@ class Plotter:
             ax.plot_surface(X, Y, Z, rstride=4, cstride=4, color='b')
 
     def pointPlot(self, plot_array):
-        if len(self.axis_range) is 2:
-            plt.plot(plot_array[0], plot_array[1], 'ro')
-        elif len(self.axis_range) is 3:
-            plt.plot(plot_array[0], plot_array[1], plot_array[2], 'ro')
+        if len(plot_array) is 2:
+            plt.plot([plot_array[0]], [plot_array[1]], 'ro')
+        elif len(plot_array) is 3:
+            plt.plot([plot_array[0]], [plot_array[1]], [plot_array[2]], 'ro')
