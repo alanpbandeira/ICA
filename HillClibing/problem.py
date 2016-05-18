@@ -1,4 +1,5 @@
 import math
+import numpy as np
 # TO TEST!!!
 
 
@@ -35,11 +36,10 @@ class Problem:
 
     @staticmethod
     def objective_function_b(x, y):
-        element_one = math.exp(-(math.pow(x, 2) + math.pow(y, 2)))
-
-        a = math.pow((x - 1.7), 2)
-        b = math.pow((y - 1.7), 2)
-        element_two = 2 * math.exp(a + b)
+        element_one = np.exp(-(np.power(x, 2) + np.power(y, 2)))
+        a = np.power((x - 1.7), 2)
+        b = np.power((y - 1.7), 2)
+        element_two = 2 * np.exp(a + b)
 
         result = element_one + element_two
 

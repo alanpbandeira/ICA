@@ -5,5 +5,5 @@ class Exporter:
     def __init__(self, file):
         self.fhand = open(file + '.m', 'w')
 
-    def surface(self, array_list):
-        for  in
+    def surface_data_export(self, array_list):
+        print ('TODO!!!!!!')
