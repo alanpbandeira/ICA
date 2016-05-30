@@ -46,8 +46,9 @@ class Plotter:
             ax = fig.gca(projection='3d')
             ax.plot_surface(X, Y, Z, rstride=4, cstride=4, color='b')
 
-    def pointPlot(self, plot_array):
+    @staticmethod
+    def pointPlot(plot_array):
         if len(plot_array) is 2:
-            plt.plot([plot_array[0]], [plot_array[1]], 'ro')
+            plt.plot([plot_array[0]], [plot_array[1]], 'ro', zdir='z')
         elif len(plot_array) is 3:
-            plt.plot([plot_array[0]], [plot_array[1]], [plot_array[2]], 'ro')
+            plt.plot([plot_array[0]], [plot_array[1]], [plot_array[2]], 'ro', zdir='z')
