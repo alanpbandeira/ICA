@@ -1,5 +1,6 @@
 from ..IndividualModel.individual import Individual
 from ..Population.population import Population
+import numpy as np
 
 
 class Selection:
@@ -12,13 +13,17 @@ class Selection:
             population_fitness += individual.fitness
 
         section_base = 0
-        wheel = {}
+        wheel = []
 
         for individual in self.population.individual_list:
-            key = self.population.individual_list.index(individual)
-            wheel[key] = section_base + individual.fitness / population_fitness
-            section_base = wheel[key]
+            section_upper_range = section_base + individual.fitness / population_fitness
+            wheel.append((section_upper_range, individual.id))
+            section_base =
 
-        
+        selector = np.random.random_sample()
+
+        for section in wheel: if
+
+
 
 

@@ -9,14 +9,20 @@ class Individual:
     """
 
     __chromosome = np.array([])
-    reproduction_probability = None
+    __fitness = None
+    __reproduction_probability = None
 
-    def __init__(self, n_genes=32, rand=False, score=None):
-        self.__score = score
+    def __init__(self, n_genes=32, rand=False, numeric=False, value=None, id=None):
         self.n_genes = n_genes
+        self.id = id
 
-        if rand:
-            self.setRandomIndividual()
+        if numeric:
+            if rand:
+                self.setRandomIndividual()
+            else:
+                self.setChromossome(value)
+
+
 
     def setRandomIndividual(self):
         for x in range(self.n_genes):
@@ -29,24 +35,24 @@ class Individual:
 
     @property
     def fitness(self):
-        return self.__score
+        return self.__fitness
 
     @fitness.setter
     def fitness(self, value):
-        self.__score = value
+        self.__fitness = value
 
     @fitness.deleter
     def fitness(self):
-        del self.__score
+        del self.__fitness
 
-    def setSVChromossome(self, value):
+    def setChromossome(self, value):
         """
         Sets the __chromossome as an bitArray of a numeric value
         :param value: numeric value to be converted in bitArray
         :return: None
         """
 
-        self.__chromosome = self.convertNumToBitArray(value)
+        self.__chromosome = self.bitStringToChromossome(self.floatToBitString(value))
 
     def chromosomeToBitString(self):
         bit_string = ''
@@ -60,8 +66,14 @@ class Individual:
         self.n_genes = len(temp_string)
         return np.array([int(bit) for bit in temp_string])
 
+    def bitStringToChromossome(self, bit_string):
+        if len(bit_string) <= self.n_genes:
+            return np.array([int(char) for char in bit_string])
+        else:
+            print('Bit array too long, chromossome length is %d' % self.n_genes)
+
     @staticmethod
-    def floatToBinary(num):
+    def floatToBitString(num):
         # Struct can provide us with the float packed into bytes. The '!' ensures that
         # it's in network byte order (big-endian) and the 'f' says that it should be
         # packed as a float. Alternatively, for double-precision, you could use 'd'.
@@ -90,7 +102,7 @@ class Individual:
         return ''.join(padded)
 
     @staticmethod
-    def binaryToFloat(bit_string):
+    def bitStringToFloat(bit_string):
         # Creates a network ordered byte list to be translated individually.
         #
         # ['00111110', '10100011', '11010111', '00001010']
