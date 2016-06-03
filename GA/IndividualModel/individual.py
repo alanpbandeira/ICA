@@ -5,24 +5,27 @@ import numpy as np
 
 class Individual:
     """
+    @attribute: (PV), [np 1-Dm Array] - chromossome
+    @attribute: (PV), [Numeric value] - fitness
+    @attribute: (PV), [Numeric value] - prob_reproduction
+    @attribute: (PB), [Integer value] - n_genes
+    @attribute: (PB), [String value ] - individual_id
 
     """
 
     __chromosome = np.array([])
     __fitness = None
-    __reproduction_probability = None
+    __prob_reproduction = None
 
-    def __init__(self, n_genes=32, rand=False, numeric=False, value=None, id=None):
+    def __init__(self, n_genes=32, rand=False, numeric=False, value=None, individual_id=None):
         self.n_genes = n_genes
-        self.id = id
+        self.individual_id = individual_id
 
         if numeric:
             if rand:
                 self.setRandomIndividual()
             else:
                 self.setChromossome(value)
-
-
 
     def setRandomIndividual(self):
         for x in range(self.n_genes):

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Selection:
+class SelectionOperator:
     def __init__(self, population):
         self.population = population
 
