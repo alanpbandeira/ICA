@@ -13,23 +13,24 @@ class Individual:
 
     """
 
-    __chromosome = np.array([])
+    __chromosome = np.array()
     __fitness = None
     __prob_reproduction = None
 
-    def __init__(self, n_genes=32, rand=False, numeric=False, value=None, individual_id=None):
+    def __init__(self, n_genes=32, rand=False, value=None):
         self.n_genes = n_genes
-        self.individual_id = individual_id
+        self.individual_id = str(value)
+        self.value = value
 
-        if numeric:
-            if rand:
-                self.setRandomIndividual()
-            else:
-                self.setChromossome(value)
+
+        if rand:
+            self.setRandomIndividual()
+        else:
+            self.setChromossome(value)
 
     def setRandomIndividual(self):
         for x in range(self.n_genes):
-            coin = random.randint(1, 10)
+            coin = np.random.randint(1, 10, 1)[0]
 
             if coin <= 5:
                 np.append(self.__chromosome, 1)
@@ -58,6 +59,10 @@ class Individual:
         self.__chromosome = self.bitStringToChromossome(self.floatToBitString(value))
 
     def chromosomeToBitString(self):
+        """
+        Convert a chromossome array to an analogue string.
+        :return bit_string: A string of binary digits.
+        """
         bit_string = ''
         for bit in self.__chromosome:
             bit_string += str(bit)
@@ -65,15 +70,26 @@ class Individual:
         return bit_string
 
     def integerToBitArray(self, value):
+        """
+        Convert an integer value to a binary array.
+        :param value: The integer value to be converted to a binary representation.
+        :return npArray: A numpy array of binary digits.
+        """
         temp_string = bin(value)[2:]
         self.n_genes = len(temp_string)
         return np.array([int(bit) for bit in temp_string])
 
     def bitStringToChromossome(self, bit_string):
-        if len(bit_string) <= self.n_genes:
+        """
+        Convert a string of binary digits to a npArray.
+        :param bit_string: A string of binary digits.
+        :return npArray:  A numpy array of binary digits.
+        :return String: String with error alert.
+        """
+        try:
             return np.array([int(char) for char in bit_string])
-        else:
-            print('Bit array too long, chromossome length is %d' % self.n_genes)
+        except IndexError:
+            return 'Bit array too long, chromossome length is %d' % self.n_genes
 
     @staticmethod
     def floatToBitString(num):
