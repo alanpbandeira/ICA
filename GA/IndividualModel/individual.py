@@ -1,4 +1,3 @@
-import random
 import struct
 import numpy as np
 
@@ -15,27 +14,24 @@ class Individual:
 
     __chromosome = np.array()
     __fitness = None
-    __prob_reproduction = None
+    __rep_probability = None
 
-    def __init__(self, n_genes=32, rand=False, value=None):
+    def __init__(self, rand=True, value=None, n_genes=32):
         self.n_genes = n_genes
-        self.individual_id = str(value)
-        self.value = value
-
 
         if rand:
-            self.setRandomIndividual()
+            self.__chromosome = self.setRandomIndividual()
+            self.value = self.bitStringToFloat(self.chromosomeToBitString())
+            self.individual_id = str(value)
         else:
-            self.setChromossome(value)
+            self.__chromosome = self.setChromossome(value)
+            self.value = value
+            self.individual_id = str(value)
 
-    def setRandomIndividual(self):
-        for x in range(self.n_genes):
-            coin = np.random.randint(1, 10, 1)[0]
 
-            if coin <= 5:
-                np.append(self.__chromosome, 1)
-            else:
-                np.append(self.__chromosome, 0)
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# PROPERTIES METHODS
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @property
     def fitness(self):
@@ -49,6 +45,23 @@ class Individual:
     def fitness(self):
         del self.__fitness
 
+    @property
+    def rep_probability(self):
+        return self.__rep_probability
+
+    @rep_probability.setter
+    def rep_probability(self, value):
+        self.rep_probability = value
+
+    @rep_probability.deleter
+    def rep_probability(self):
+        del self.__rep_probability
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# CHROMOSSOME MANIPULATION METHODS
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     def setChromossome(self, value):
         """
         Sets the __chromossome as an bitArray of a numeric value
@@ -56,28 +69,26 @@ class Individual:
         :return: None
         """
 
-        self.__chromosome = self.bitStringToChromossome(self.floatToBitString(value))
+        return self.bitStringToChromossome(self.floatToBitString(value))
+
+    def setRandomIndividual(self, valued=None, num_range=None):
+        """
+        Creates a binary chromossome modeled as an array
+        :return npArray:
+        """
+        if valued:
+            num = np.random.uniform(num_range[0], num_range[1], 1)[0]
+            return self.bitStringToChromossome(self.floatToBitString(num))
+        else:
+            return [1 if np.random.randint(1, 10, 1)[0] <= 5 else 0 for x in range(self.n_genes)]
 
     def chromosomeToBitString(self):
         """
         Convert a chromossome array to an analogue string.
         :return bit_string: A string of binary digits.
         """
-        bit_string = ''
-        for bit in self.__chromosome:
-            bit_string += str(bit)
 
-        return bit_string
-
-    def integerToBitArray(self, value):
-        """
-        Convert an integer value to a binary array.
-        :param value: The integer value to be converted to a binary representation.
-        :return npArray: A numpy array of binary digits.
-        """
-        temp_string = bin(value)[2:]
-        self.n_genes = len(temp_string)
-        return np.array([int(bit) for bit in temp_string])
+        return ''.join([str(bit) for bit in self.__chromosome])
 
     def bitStringToChromossome(self, bit_string):
         """
@@ -86,10 +97,16 @@ class Individual:
         :return npArray:  A numpy array of binary digits.
         :return String: String with error alert.
         """
+
         try:
             return np.array([int(char) for char in bit_string])
         except IndexError:
             return 'Bit array too long, chromossome length is %d' % self.n_genes
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# NUMERIC VALUES MANIPULATION METHODS
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @staticmethod
     def floatToBitString(num):
@@ -150,6 +167,7 @@ class Individual:
             byte_value_list.append(k)
 
         # Char value of each int
+        #
         char_list = [chr(value) for value in byte_value_list]
 
         # Join the values to mount the packed value
@@ -159,5 +177,8 @@ class Individual:
         # Convert the string of bytes to it`s float value
         #
         unpacked = struct.unpack('!f', joined)
+
+        # Return the float value converted from bit_string
+        #
         return unpacked[0]
 

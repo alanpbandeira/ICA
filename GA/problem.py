@@ -21,7 +21,7 @@ class Problem:
 
     """
 
-    def __init__(self, maximization, interval, function):
+    def __init__(self, interval=(0, 1), maximization=True, function='a'):
         self.maximization = maximization
         self.interval = interval
         self.function = function
@@ -53,6 +53,12 @@ class Problem:
         result = element_one + element_two
 
         return result
+
+    def binEvaluation(self, x, y):
+        if self.maximization:
+            return max([x,y])
+        else:
+            return min([x,y])
 
     def setScore(self, value):
         if self.function is 'a':

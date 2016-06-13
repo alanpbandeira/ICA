@@ -1,20 +1,22 @@
 import numpy as np
 
 
-class MutationOperator:
-    def __init__(self, mutation_prob, n_target_genes):
-        self.mutation_prob  = mutation_prob
-        self.n_target_genes = n_target_genes
+def bitFlipMutation(individual, mutation_prob=0.05, n_target_genes=3):
+    """
+    Applies a bitflip mutation to an individual
+    :param individual:
+    :param mutation_prob:
+    :param n_target_genes:
+    :return:
+    """
+    n = 0
+    genes = np.random.randint(0, len(individual), n_target_genes)
 
-    def bitFlipMutation(self, array):
-        n = 0
-        genes = np.random.randint(0, len(array), self.n_target_genes)
+    for gene in genes:
+        tester = np.random.random_sample()
 
-        for gene in genes:
-            tester = np.random.random_sample()
-
-            if tester < self.mutation_prob:
-                if array[gene] == 1:
-                    array[n] = 0
-                else:
-                    array[gene] = 1
+        if tester < mutation_prob:
+            if individual[gene] == 1:
+                individual[n] = 0
+            else:
+                individual[gene] = 1

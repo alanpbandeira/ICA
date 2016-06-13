@@ -1,11 +1,24 @@
+import numpy as np
 from ..IndividualModel.individual import Individual
 
 
 class Population:
-    def __init__(self, individual_list, size=100, max_size=None,):
+
+    __similarity = None
+    __population_fitness = None
+
+    def __init__(self, individual_list=None, rand=False, size=100, max_size=None,):
         self.__size = size
         self.__max_size = max_size
-        self.individual_list = individual_list
+
+        if rand:
+            self.individual_list = [Individual() for count in self._size]
+        else:
+            self.individual_list = individual_list
+
+    def similarityCalc(self):
+        """TODO"""
+        pass
 
     @property
     def size(self):
