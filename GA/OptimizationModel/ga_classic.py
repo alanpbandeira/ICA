@@ -18,4 +18,3 @@ class GA:
             index = initial_population.individual_list.index(individual)
             initial_population.individual_list[index].fitness(self.problem.setScore(individual.fitness()))
 
-        
