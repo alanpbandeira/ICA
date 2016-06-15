@@ -7,6 +7,7 @@ class Individual:
     @attribute: (PV), [np 1-Dm Array] - chromossome
     @attribute: (PV), [Numeric value] - fitness
     @attribute: (PV), [Numeric value] - prob_reproduction
+    @attribute: (PV), [Numeric value]
     @attribute: (PB), [Integer value] - n_genes
     @attribute: (PB), [String value ] - individual_id
 
@@ -16,17 +17,17 @@ class Individual:
     __fitness = None
     __rep_probability = None
 
-    def __init__(self, rand=True, value=None, n_genes=32):
+    def __init__(self, rand=True, n_value=None, n_genes=32):
         self.n_genes = n_genes
 
         if rand:
             self.__chromosome = self.setRandomIndividual()
-            self.value = self.bitStringToFloat(self.chromosomeToBitString())
-            self.individual_id = str(value)
+            self.__n_value = self.bitStringToFloat(self.chromosomeToBitString())
+            self.__individual_id = str(n_value)
         else:
-            self.__chromosome = self.setChromossome(value)
-            self.value = value
-            self.individual_id = str(value)
+            self.__chromosome = self.setChromossome(n_value)
+            self.__n_value = n_value
+            self.__individual_id = str(n_value)
 
 
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +57,30 @@ class Individual:
     @rep_probability.deleter
     def rep_probability(self):
         del self.__rep_probability
+
+    @property
+    def n_value(self):
+        return self.__n_value
+
+    @n_value.setter
+    def n_value(self, value):
+        self.n_value = value
+
+    @n_value.deleter
+    def n_value(self):
+        del self.n_value
+
+    @property
+    def individual_id(self):
+        return self.__individual_id
+
+    @individual_id.setter
+    def individual_id(self, value):
+        self.__individual_id = value
+
+    @individual_id.deleter
+    def individual_id(self):
+        del self.__individual_id
 
 
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 import numpy as np
-from ..IndividualModel.individual import Individual
+from ICA.GA.IndividualModel.individual import Individual
 
 
 class Population:
