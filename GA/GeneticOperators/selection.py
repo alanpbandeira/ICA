@@ -24,13 +24,13 @@ def rouletteWheel(population):
     fitness_total = 0
 
     for individual in population.individual_list:
-        fitness_total += individual.fitness()
+        fitness_total += individual.fitness
 
     wheel = []
     section_base = 0
 
     for individual in population.individual_list:
-        section_upper_range = section_base + individual.fitness() / fitness_total
+        section_upper_range = section_base + individual.fitness / fitness_total
         wheel.append((section_upper_range, individual.id))
         section_base = section_upper_range
 

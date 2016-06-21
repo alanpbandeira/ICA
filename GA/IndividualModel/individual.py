@@ -4,7 +4,7 @@ import numpy as np
 
 class Individual:
     """
-    @attribute: (PV), [np 1-Dm Array] - chromossome
+    @attribute: (PB), [np 1-Dm Array] - chromosome
     @attribute: (PV), [Numeric value] - fitness
     @attribute: (PV), [Numeric value] - prob_reproduction
     @attribute: (PV), [Numeric value]
@@ -13,7 +13,7 @@ class Individual:
 
     """
 
-    __chromosome = np.array()
+    chromosome = np.array([])
     __fitness = None
     __rep_probability = None
 
