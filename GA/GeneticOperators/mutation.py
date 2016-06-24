@@ -3,9 +3,9 @@ import numpy as np
 
 def bitFlipMutation(individual_list, mutation_prob=0.05, n_target_genes=3):
     """
-    Applies a bitflip mutation to an individual
+    Applies a bit_flip mutation to an individual
     :param individual_list:
-    :param mutation_prob:
+    :param mutation_prob: default probability of flipping a bit
     :param n_target_genes:
     :return:
     """

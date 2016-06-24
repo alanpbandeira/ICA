@@ -1,4 +1,3 @@
-import numpy as np
 from ICA.GA.IndividualModel.individual import Individual
 
 
@@ -15,6 +14,7 @@ class Population:
         else:
             self.individual_list = individual_list
 
+    @staticmethod
     def similarityCalc(self):
         """TODO"""
         pass

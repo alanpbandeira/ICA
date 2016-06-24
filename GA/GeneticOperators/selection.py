@@ -2,14 +2,19 @@ import numpy as np
 
 
 def binaryTournament(population, identical_parent=False):
+    """
+    - Select an individual using the binaryTournament method.
+    :param population:
+    :param identical_parent:
+    :return:
+    """
     index_one = index_two = None
     if identical_parent:
-        while index_one == index_two:
-            index_one = np.random.randint(0, len(population.individual_list), 1)[0]
-            index_two = np.random.randint(0, len(population.individual_list), 1)[0]
+        index_one = index_two = np.random.choice(x for x in range(population.individual_list))
     else:
-        index_one = np.random.randint(0, len(population.individual_list), 1)[0]
-        index_two = np.random.randint(0, len(population.individual_list), 1)[0]
+        while index_one is not index_two:
+            index_one = np.random.choice(x for x in range(population.individual_list))
+            index_two = np.random.choice(x for x in range(population.individual_list))
 
     candidate_one = population.individual_list[index_one]
     candidate_two = population.individual_list[index_two]

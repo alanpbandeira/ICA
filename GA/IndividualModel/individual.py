@@ -13,81 +13,34 @@ class Individual:
 
     """
 
-    chromosome = np.array([])
+    chromosome = []
     __fitness = None
     __rep_probability = None
 
     def __init__(self, rand=True, n_value=None, n_genes=32):
+        """
+        - Initialize the individual element.
+        :param rand [default = True]: Set the init method to generate a random individual.
+        :param n_value [default = None]: Represent the numeric value used to identify and build the individual.
+        :param n_genes [default = 32]: Represent the size of the chromossome bit array.
+        """
         self.n_genes = n_genes
 
         if rand:
-            self.__chromosome = self.setRandomIndividual()
+            self.__chromosome = self.buildRandomIndividual()
             self.__n_value = self.bitStringToFloat(self.chromosomeToBitString())
             self.__individual_id = str(n_value)
         else:
-            self.__chromosome = self.setChromossome(n_value)
+            self.__chromosome = self.buildChromossome(n_value)
             self.__n_value = n_value
             self.__individual_id = str(n_value)
-
-
-# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-# PROPERTIES METHODS
-# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @property
-    def fitness(self):
-        return self.__fitness
-
-    @fitness.setter
-    def fitness(self, value):
-        self.__fitness = value
-
-    @fitness.deleter
-    def fitness(self):
-        del self.__fitness
-
-    @property
-    def rep_probability(self):
-        return self.__rep_probability
-
-    @rep_probability.setter
-    def rep_probability(self, value):
-        self.rep_probability = value
-
-    @rep_probability.deleter
-    def rep_probability(self):
-        del self.__rep_probability
-
-    @property
-    def n_value(self):
-        return self.__n_value
-
-    @n_value.setter
-    def n_value(self, value):
-        self.n_value = value
-
-    @n_value.deleter
-    def n_value(self):
-        del self.n_value
-
-    @property
-    def individual_id(self):
-        return self.__individual_id
-
-    @individual_id.setter
-    def individual_id(self, value):
-        self.__individual_id = value
-
-    @individual_id.deleter
-    def individual_id(self):
-        del self.__individual_id
 
 
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # CHROMOSSOME MANIPULATION METHODS
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    def setChromossome(self, value):
+    def buildChromossome(self, value):
         """
         Sets the __chromossome as an bitArray of a numeric value
         :param value: numeric value to be converted in bitArray
@@ -96,7 +49,7 @@ class Individual:
 
         return self.bitStringToChromossome(self.floatToBitString(value))
 
-    def setRandomIndividual(self, valued=None, num_range=None):
+    def buildRandomIndividual(self, valued=None, num_range=None):
         """
         Creates a binary chromossome modeled as an array
         :return npArray:
@@ -124,7 +77,7 @@ class Individual:
         """
 
         try:
-            return np.array([int(char) for char in bit_string])
+            return [int(char) for char in bit_string]
         except IndexError:
             return 'Bit array too long, chromossome length is %d' % self.n_genes
 
@@ -132,6 +85,7 @@ class Individual:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # NUMERIC VALUES MANIPULATION METHODS
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @staticmethod
     def floatToBitString(num):
@@ -206,4 +160,58 @@ class Individual:
         # Return the float value converted from bit_string
         #
         return unpacked[0]
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# - PROPERTIES METHODS
+#
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @property
+    def fitness(self):
+        return self.__fitness
+
+    @fitness.setter
+    def fitness(self, value):
+        self.__fitness = value
+
+    @fitness.deleter
+    def fitness(self):
+        del self.__fitness
+
+    @property
+    def rep_probability(self):
+        return self.__rep_probability
+
+    @rep_probability.setter
+    def rep_probability(self, value):
+        self.rep_probability = value
+
+    @rep_probability.deleter
+    def rep_probability(self):
+        del self.__rep_probability
+
+    @property
+    def n_value(self):
+        return self.__n_value
+
+    @n_value.setter
+    def n_value(self, value):
+        self.n_value = value
+
+    @n_value.deleter
+    def n_value(self):
+        del self.n_value
+
+    @property
+    def individual_id(self):
+        return self.__individual_id
+
+    @individual_id.setter
+    def individual_id(self, value):
+        self.__individual_id = value
+
+    @individual_id.deleter
+    def individual_id(self):
+        del self.__individual_id
 
