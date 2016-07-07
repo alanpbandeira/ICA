@@ -1,4 +1,4 @@
-import struct
+import struct, math
 import numpy as np
 
 
@@ -142,7 +142,7 @@ class Individual:
         for byte in byte_string_list:
             k = 0
             for x in range(len(byte)):
-                k += np.power(2, x) * int(byte[::-1][x])
+                k += math.pow(2, x) * int(byte[::-1][x])
             byte_value_list.append(k)
 
         # Char value of each int

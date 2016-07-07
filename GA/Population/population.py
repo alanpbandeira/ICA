@@ -10,7 +10,7 @@ class Population:
         self.__size = size
 
         if rand:
-            self.individual_list = [Individual() for count in self._size]
+            self.individual_list = [Individual() for count in range(self.__size)]
         else:
             self.individual_list = individual_list
 
