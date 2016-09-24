@@ -23,16 +23,26 @@ class KMeans(object):
 
         return math.sqrt(d_sum)
 
+    def setClusterList(self):
+        data_list = []
+        for point in self.data:
+            distances = []
+            for cluster, centroid in self.centroids.items():
+                distances.append((self.euclidianDist(point, centroid), cluster))
+            data_list.append(min(distances)[1])
+
+        return data_list
+
     def selectRandomCentroids(self):
         centroids = np.random.choice(len(self.data), self.n_clusters)
-        # return np.array([self.data[centroid] for centroid in centroids])
-        return {c:p for p, c in zip([self.data[centroid,:] for centroid in centroids], range(1, self.n_clusters + 1))}
+        return {c: p for p, c in zip([self.data[centroid,:] for centroid in centroids], range(1, self.n_clusters + 1))}
 
     def setClusters(self):
         if self.clusters is None:
-            self.clusters = {c:[p] for c, p in zip(range(1, self.n_clusters + 1), [self.centroids[x] for x in self.centroids])}
+            curr_centroids = [self.centroids[x] for x in self.centroids]
+            self.clusters = {c: [p] for c, p in zip(range(1, self.n_clusters + 1), curr_centroids)}
         else:
-            self.clusters = {c:None for c in self.centroids}
+            self.clusters = {c: None for c in self.centroids}
 
         for point in self.data:
             distances = []
@@ -50,33 +60,16 @@ class KMeans(object):
 
     def setCentroids(self):
         for cluster, points in self.clusters.items():
-            #print(cluster, points)
             self.centroids[cluster] = sum(points) / len(points)
     
     def clustering(self):
-        cluter_data = []
         self.centroids = self.selectRandomCentroids()
-        # converged = False
         count = 10
 
-        while not converged:
+        while count > 5:
             count -= 1
             
-            # actual_centroids = self.centroids.copy()
             self.setClusters()
             self.setCentroids()
 
-            # if actual_centroids is self.centroids:
-            #     #count += 1
-            #     converged = True
-            # if count > 10:
-            #     converged = True
-
-        #print(self.clusters)
-
-        for cluster, points in self.clusters.items():
-            for point in self.data:
-                if point in points:
-                    cluster_data.append(cluster)
-
-        return cluster_data
+        return self.setClusterList()
