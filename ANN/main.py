@@ -18,10 +18,12 @@ fig = plt.figure(1)
 plt.subplot(211)
 plt.scatter(data[:, 0], data[:, 1], s=50)
 
-clusterer = KMeans(data, 3)
-cluster_data = clusterer.clustering()
+solver = KMeans(data, 3)
+cluster_data = solver.clustering()
+centorids = solver.getCentroids()
 
 plt.subplot(212)
 plt.scatter(data[:, 0], data[:, 1], c=cluster_data, s=50, cmap='rainbow')
+plt.scatter(centorids[:, 0], centorids[:, 1], marker='*', s=50)
 
 plt.show() 

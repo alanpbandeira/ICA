@@ -23,6 +23,9 @@ class KMeans(object):
 
         return math.sqrt(d_sum)
 
+    def getCentroids(self):
+        return np.array([point for cluster, point in self.centroids.items()]).reshape(self.n_clusters, 2)
+
     def setClusterList(self):
         data_list = []
         for point in self.data:
@@ -64,9 +67,9 @@ class KMeans(object):
     
     def clustering(self):
         self.centroids = self.selectRandomCentroids()
-        count = 10
+        count = 1000
 
-        while count > 5:
+        while count > 0:
             count -= 1
             
             self.setClusters()
