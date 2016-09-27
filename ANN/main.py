@@ -4,6 +4,16 @@ import matplotlib.pyplot as plt
 from kmeans.k_means import KMeans
 
 
+def vectorMod(array):
+    """
+    @Info: Returns the modulos(len) of an array.
+    @param: array => list or numpy array.
+    """
+    return math.sqrt(sum(array ** 2))
+
+def vectorNorm(array):
+    return array / vectorMod(array)
+
 def csvImport(file_name):
 	fhand = open(file_name, 'r')
 	raw_data = [",".join(line.split(',')[:2]) for line in fhand]
@@ -12,14 +22,17 @@ def csvImport(file_name):
 
 	return data
 
+
 data = csvImport("iris-data.csv")
+# data = np.array([vectorNorm(line) for line in data])
 
 fig = plt.figure(1)
 plt.subplot(211)
 plt.scatter(data[:, 0], data[:, 1], s=50)
 
-solver = KMeans(data, 3)
+solver = KMeans(data, 4)
 cluster_data = solver.clustering()
+print (cluster_data)
 centorids = solver.getCentroids()
 
 plt.subplot(212)
