@@ -1,7 +1,7 @@
 import numpy as np
-from ..Population.population import Population
-from ..problem import Problem
-from ..GeneticOperators import crossover, mutation, selection
+from .Population.population import Population
+from .problem import Problem
+from .GeneticOperators import crossover, mutation, selection
 
 
 class GA:

@@ -1,5 +1,5 @@
 import problem
-from ICA.GA.OptimizationModel import ga_classic
+from OptimizationModel import ga_classic
 
 p = problem.Problem()
 problem_solver = ga_classic.GA(p)

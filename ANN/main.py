@@ -1,6 +1,6 @@
 import numpy as np
 import math
-import matplotlib.pyplot as plt
+from Visualization import visual_model as vm
 from kmeans.k_means import KMeans
 
 
@@ -26,17 +26,8 @@ def csvImport(file_name):
 data = csvImport("iris-data.csv")
 # data = np.array([vectorNorm(line) for line in data])
 
-fig = plt.figure(1)
-plt.subplot(211)
-plt.scatter(data[:, 0], data[:, 1], s=50)
-
 solver = KMeans(data, 4)
 cluster_data = solver.clustering()
-print (cluster_data)
-centorids = solver.getCentroids()
+centroids = solver.getCentroids()
 
-plt.subplot(212)
-plt.scatter(data[:, 0], data[:, 1], c=cluster_data, s=50, cmap='rainbow')
-plt.scatter(centorids[:, 0], centorids[:, 1], marker='*', s=50)
-
-plt.show() 
+vm.comparative_plot(data, cluster_data, centroids)
