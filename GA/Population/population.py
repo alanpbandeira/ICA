@@ -8,6 +8,7 @@ class Population:
 
     def __init__(self, individual_list=None, size=100):
         """
+        @Info: In case no individual_list is provided the population will be randomly created.
         @param
         @param
         @param

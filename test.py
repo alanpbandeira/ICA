@@ -63,16 +63,16 @@ def bitStringToFloat(bit_string):
     # Join the values to mount the packed value
     #
     joined = bytearray(''.join(char_list), 'utf-8')
-    print(joined)
     if len(joined) is 5:
         del joined[1]
+    print(joined)
 
     # Convert the string of bytes to it`s float value
     #
-    #unpacked = struct.unpack('!f', joined)
+    unpacked = struct.unpack('!f', joined)
 
     # Return the float value converted from bit_string
     #
-    #return unpacked[0]
+    return unpacked[0]
 
 print (bitStringToFloat(floatToBitString(1.0)))
