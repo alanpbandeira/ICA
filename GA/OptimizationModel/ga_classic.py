@@ -1,7 +1,7 @@
 import numpy as np
-from .Population.population import Population
-from .problem import Problem
-from .GeneticOperators import crossover, mutation, selection
+from ..Population.population import Population
+from ..problem import Problem
+from ..GeneticOperators import crossover, mutation, selection
 
 
 class GA:
@@ -12,7 +12,7 @@ class GA:
         self.problem = problem
 
     def run(self):
-        initial_population = Population(rand=True)
+        initial_population = Population()
 
         # Evaluates the initial population
         for individual in initial_population.individual_list:
@@ -20,7 +20,7 @@ class GA:
             initial_population.individual_list[index].fitness(self.problem.setScore(individual.n_value))
 
         best_individual = (initial_population.individual_list[0].fitness,
-                           initial_population.individual_list.individual_id)
+                           initial_population.individual_list[0].individual_id)
 
         for individual in initial_population.individual_list:
             if individual.fitness > best_individual[0]:

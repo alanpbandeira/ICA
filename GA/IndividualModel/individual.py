@@ -142,16 +142,19 @@ class Individual:
         for byte in byte_string_list:
             k = 0
             for x in range(len(byte)):
-                k += math.pow(2, x) * int(byte[::-1][x])
+                k += int(math.pow(2, x)) * int(byte[::-1][x])
             byte_value_list.append(k)
 
         # Char value of each int
         #
         char_list = [chr(value) for value in byte_value_list]
-
+        
         # Join the values to mount the packed value
         #
-        joined = ''.join(char_list)
+        joined = bytearray(''.join(char_list), 'utf-8')
+        print(joined)
+        if len(joined) is 5:
+            del joined[1]
 
         # Convert the string of bytes to it`s float value
         #

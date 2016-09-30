@@ -1,4 +1,4 @@
-from ICA.GA.IndividualModel.individual import Individual
+from ..IndividualModel.individual import Individual
 
 
 class Population:
@@ -6,13 +6,18 @@ class Population:
     __similarity = None
     __population_fitness = None
 
-    def __init__(self, individual_list=None, rand=False, size=100):
+    def __init__(self, individual_list=None, size=100):
+        """
+        @param
+        @param
+        @param
+        """
         self.__size = size
 
-        if rand:
-            self.individual_list = [Individual() for count in range(self.__size)]
-        else:
+        if individual_list:
             self.individual_list = individual_list
+        else:
+            self.individual_list = [Individual() for count in range(self.__size)]
 
     @staticmethod
     def similarityCalc(self):
