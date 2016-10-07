@@ -1,9 +1,4 @@
-from GA import problem
-from GA.OptimizationModel import ga_classic
+from Data.csv_module.dataset_model import DataSet
 
-p = problem.Problem()
-problem_solver = ga_classic.GA(p)
-
-solution = problem_solver.run()
-
-print(solution)
+my_data = DataSet('Resources/iris.data')
+print(my_data[0].data_point)

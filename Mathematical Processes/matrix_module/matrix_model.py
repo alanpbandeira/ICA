@@ -8,3 +8,13 @@ def euclidianDist(point_one, point_two):
         @return: float
         """
         return np.sqrt(sum((point_one - point_two) ** 2))
+
+def vectorMod(array):
+    """
+    @Info: Returns the modulos(len) of an array.
+    @param: array => list or numpy array.
+    """
+    return math.sqrt(sum(array ** 2))
+
+def vectorNorm(array):
+    return array / vectorMod(array)
