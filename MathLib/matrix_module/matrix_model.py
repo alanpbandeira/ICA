@@ -14,7 +14,14 @@ def vectorMod(array):
     @Info: Returns the modulos(len) of an array.
     @param: array => list or numpy array.
     """
-    return math.sqrt(sum(array ** 2))
+    return np.sqrt(sum(array ** 2))
 
 def vectorNorm(array):
     return array / vectorMod(array)
+
+def linearCombination(scalar_vector, vector_list):
+    """
+    @param: scalar_vector: Scalar values for linear combination.
+    @param: vector_lsit: Vectors to the combination. Must match scalar order.
+    """
+    return np.transpose(np.matrix(scalar_vector) * np.matrix(vector_list))

@@ -1,15 +1,10 @@
-
+import numpy
 
 class Neuron(object):
     
-    def __init__(self, wheights, thershold):
+    def __init__(self, wheights, calss_id):
         self.wheights = wheights
-        self.threshold = threshold
-        self.act_potential = None
-    
-    @staticmethod
-    def linear_combination(scalar_array, arrrays):
-        pass
+        self.calss_id = calss_id
     
     def activation_function(self):
         pass
