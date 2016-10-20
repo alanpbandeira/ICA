@@ -8,6 +8,10 @@ class Neuron(object):
 	docstring for Neuron
 	"""
 
+#
+#	DUNDER METHODS
+#
+
 	def __init__(self, weights=None, n_weights=None, value_range=None):
 		"""
 		Class that defines the Neuron object. If weights is given the others 
@@ -17,7 +21,7 @@ class Neuron(object):
 		@param: n_weights: Number of weight that will compound the neuron randomly generated
 		@param: range: Tuple of tow values, aa lower bound and an upper bound.
 		"""
-		if weights:
+		if weights is not None:
 			self._weights = weights
 			self.n_weights = len(self._weights)
 		else:
@@ -27,7 +31,29 @@ class Neuron(object):
 		self._norm = vectorMod(self._weights)
 		self._neighbourhood = None
 		self._class_id = None
-		self._position = None
+		self._index = None
+
+	def __len__(self):
+		return len(self._weights)
+
+	def __getitem__(self, index):
+		return self._weights[index]
+
+	def __setitem__(self, key, value):
+		self._weights[key] = value
+
+
+#
+#	CLASS METHODS
+#
+	
+	def activationFunc():
+		pass # to do
+
+
+#
+#	PROPERTIES
+#
 
 	@property
 	def weights(self):
@@ -62,12 +88,11 @@ class Neuron(object):
 		self._class_id = new_id
 
 	@property
-	def position(self):
-		return self._position
+	def index(self):
+		return self._index
 
-	@position.setter
-	def position(self, new_position):
-		self._position = new_position
+	@index.setter
+	def index(self, new_index):
+		self._index = new_index
 
-	def activationFunc():
-		pass # to do
+

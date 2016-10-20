@@ -7,24 +7,35 @@ class NeuronLayer(object):
 	"""
 	docstring for NeuronSet
 	"""
-	
-	def __init__(self, size, dimensions):
+
+#
+#	DUNDER METHODS
+#
+
+	def __init__(self, data_set, dimensions, n_radius):
 		"""
-		@param: size: The number of neurons.
-		@param: dimensions: Dimensions of the NeuronLayer matrix (rows, columns)
+		@param: dimensions: Dimensions of the NeuronLayer matrix (rows, columns);
+		@param: n_radius: Neighbourhood radius.
 		"""
-		self._size = size
+
+		self._radius = n_radius
 		self._layer_dim = dimensions
+		self._size = _layer_dim[0] * _layer_dim[1]
 		self._neuron_layer = None
 
 	def __len__(self):
 		return len(self._neuron_layer)
 
-	def __getitem__(self, index_one, index_two=None):
-		if index_two:
-			return self._neuron_layer[index_one][index_two]
-		else:
-			return self._neuron_layer[index_one]
+	def __getitem__(self, index):
+		return self._neuron_layer[index]
+
+	def __setitem__(self, key, value):
+		self._neuron_layer[key] = value
+
+
+#
+#	CLASS METHODS
+#
 
 	def neuronsFromData(self, data_set):
 		"""
@@ -50,7 +61,42 @@ class NeuronLayer(object):
 		
 		return [Neuron(candidate.data) for candidate in candidates]
 
-	def buildLayer(self):
+	def setNeighbours(self):
 		pass
 
+	def genLayerIndexes(self):
+		"""
+		Create matrix-like indexes to the layer with linear complexity.
+		"""
+
+		indexes = []
+
+		if self._size < 1:
+			raise ValueError("Impossible to create zero-sided layer")
+
+		x_counter = 1
+		y_counter = 1
+
+		while x_counter <= self._layer_dim[0]:
+			if y_counter <= self._layer_dim[1]:
+				indexes.append([x_counter, y_counter])
+				y_counter += 1
+			else:
+				x_counter += 1
+
+		return indexes
+
+	def buildLayer(self, data_set):
+		"""
+		"""
+
+		l_neurons = self.neuronsFromData(data_set)
+		l_indexes = self.genLayerIndexes()
+
+		for neuron in l_neurons:
+
+
+#
+#	PROPERTIES
+#
 
