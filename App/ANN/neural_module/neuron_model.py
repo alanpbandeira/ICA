@@ -8,30 +8,29 @@ class Neuron(object):
 	docstring for Neuron
 	"""
 
+	self._neighbourhood = None
+	self._class_id = None
+	self._index = None
+
 #
 #	DUNDER METHODS
 #
 
-	def __init__(self, weights=None, n_weights=None, value_range=None):
+	def __init__(self, weight_list=None, size=None):
 		"""
 		Class that defines the Neuron object. If weights is given the others 
 
-		@param: weights: 1D numpy array of numeric values, if no data is passed 
+		@param: weight_list: 1D numpy array of numeric values, if no data is passed 
 		the neuron will be set with an array of random values
-		@param: n_weights: Number of weight that will compound the neuron randomly generated
+		@param: size: Number of weight that will compound the neuron randomly generated
 		@param: range: Tuple of tow values, aa lower bound and an upper bound.
 		"""
-		if weights is not None:
-			self._weights = weights
-			self.n_weights = len(self._weights)
+		if weight_list is not None:
+			self._weights = weight_list
 		else:
-			self.n_weights = n_weights
-			self._weights = np.random.uniform(value_range[0], value_range[1], n_weights)
+			self._weights = np.random.uniform(size)
 		
-		self._norm = vectorMod(self._weights)
-		self._neighbourhood = None
-		self._class_id = None
-		self._index = None
+		self._norm = vectorMod(self._weights)		
 
 	def __len__(self):
 		return len(self._weights)
