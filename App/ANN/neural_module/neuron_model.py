@@ -8,9 +8,9 @@ class Neuron(object):
 	docstring for Neuron
 	"""
 
-	self._neighbourhood = None
-	self._class_id = None
-	self._index = None
+	_neighbourhood = None
+	_class_id = None
+	_index = None
 
 #
 #	DUNDER METHODS
@@ -20,8 +20,8 @@ class Neuron(object):
 		"""
 		Class that defines the Neuron object. If weights is given the others 
 
-		@param: weight_list: 1D numpy array of numeric values, if no data is passed 
-		the neuron will be set with an array of random values
+		@param: weight_list: 1D numpy array of numeric values, if no data is 
+		passed the neuron will be set with an array of random values
 		@param: size: Number of weight that will compound the neuron randomly generated
 		@param: range: Tuple of tow values, aa lower bound and an upper bound.
 		"""

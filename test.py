@@ -1,11 +1,10 @@
 from App.ANN.neural_module.neuron_model import Neuron
+from App.ANN.neural_module.neuronset_model import NeuronLayer
 
-import numpy as np
+new_layer = NeuronLayer(4, (4,4), 1)
+
+print(new_layer.weightMatrix())
 
 
-data = np.array([1,1,1,1,1,2])
 
-a = Neuron(n_weights=10, value_range=(1,10))
-a.setNorm()
 
-print (a.norm, a.weights)

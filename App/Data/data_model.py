@@ -5,9 +5,10 @@ class DataPoint(object):
 	docstring for DataPoint
 	"""
 	
+	_class_id = None
+	
 	def __init__(self, data_array):
 		self._data_points = data_array
-		self._class_id = None
 
 	def __getitem__(self, position):
 		return self._data_points[position]

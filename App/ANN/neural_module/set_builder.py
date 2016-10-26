@@ -5,28 +5,32 @@ from .neuron_model import Neuron
 
 class LayerBuilder(object):
 	"""docstring for Builder"""
+
+	def __init__(self, layer_size, layer_dimensions, layer_radius):
+		self.layer_radius = layer_radius
+		self.layer_dimensions = layer_dimensions
+		self.layer_size = layer_size
 	
 		
 #
 #	CLASS METHODS
 #
 
-	@staticmethod
-	def neuronsFromData(self, data_set, size):
+	def neuronsFromData(self, data_set):
 		"""
 		Select data points to compound the neuronset
 
 		@param: data_set: DataSet Object or array of data Objects.
 		"""
 
-		if len(data_set) == size:
+		if len(data_set) == self.layer_size:
 			candidates = data_set
-		elif len(data_set) < size:
+		elif len(data_set) < self.layer_size:
 			return "Insuficient Data"
 		else:
 			candidate = []
 			count = 0
-			while count < size:
+			while count < self.layer_size:
 				candidate = np.random.choice(data_set)
 				if candidate in candidates:
 					continue
@@ -36,22 +40,21 @@ class LayerBuilder(object):
 
 		return [Neuron(candidate.data) for candidate in candidates]
 
-	@staticmethod	
-	def genLayerIndexes(self, size, dimensions):
+	def genLayerIndexes(self):
 		"""
 		Create matrix-like indexes to the layer with linear complexity.
 		"""
 
 		indexes = []
 
-		if size < 1:
+		if self.layer_size < 1:
 			raise ValueError("Impossible to create zero-sided layer")
 
 		x_counter = 1
 		y_counter = 1
 
-		while x_counter <= dimensions[0]:
-			if y_counter <= dimensions[1]:
+		while x_counter <= self.layer_dimensions[0]:
+			if y_counter <= self.layer_dimensions[1]:
 				indexes.append([x_counter, y_counter])
 				y_counter += 1
 			else:
@@ -59,9 +62,9 @@ class LayerBuilder(object):
 
 		return indexes
 
-	@staticmethod
-	def setNeighbours(self, neurons, radius):
+	def setNeighbours(self, neurons):
 		"""
+
 		"""
 
 		for index in range(len(neurons)):
@@ -73,26 +76,30 @@ class LayerBuilder(object):
 				else:
 					p_one = np.array(neurons[index].index)
 					p_two = np.array(candidate.index)
-					if euclidianDist(p_one, p_two) <= radius:
+					if euclidianDist(p_one, p_two) <= self.layer_dimensions:
 						candidates.append(candidate.index)
 
 			neurons[index].neighbourhood = candidate.copy()
 
 
-	@staticmethod
-	def build(self, size, dimensions, radius):
+	def build(self, neuron_size):
 		"""
+		@param: neuron_size: TODO
 		"""
 
-		indexes = self.genLayerIndexes(size, dimensions)
-		neurons = [Neuron(neuron_size) for x in range(size)]
-		class_ids = range(1, (size + 1))
+		indexes = self.genLayerIndexes()
+		neurons = [Neuron(neuron_size) for x in range(self.layer_size)]
+		class_ids = range(1, (self.layer_size + 1))
 
 		for idx, c_id in zip(indexes, class_ids):
-			elected_neu = np.random.choice(size)
+			elected_neu = np.random.choice(self.layer_size)
 			neurons[elected_neu].index(idx)
 			neurons[elected_neu].class_id(c_id)
 
-		self.setNeighbours(neurons, radius)
+		self.setNeighbours(neurons)
+
+		return {neuron.index: neuron for neuron in neurons}
+
+
 
 		

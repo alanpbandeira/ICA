@@ -1,9 +1,8 @@
 import numpy as np
 
 from .neuron_model import Neuron
-from .set_builder import LayerBuilder as lb
+from .set_builder import LayerBuilder
 from ...MathLib.matrix_module import euclidianDist
-from ...ANN.Data.dataset_model import DataSet
 
 
 class NeuronLayer(object):
@@ -17,15 +16,18 @@ class NeuronLayer(object):
 
 	def __init__(self, neuron_size, dimensions, n_radius):
 		"""
-		@param: dataset: DataSet object used to 
-		@param: dimensions: Dimensions of the NeuronLayer matrix (rows, columns);
-		@param: n_radius: Neighbourhood radius.
+		@param: dimensions: Dimensions of the NeuronLayer 
+		indexes (rows, columns);
+		@param: n_radius: Neighbourhood radius for each neuron.
 		"""
 
 		self._radius = n_radius
 		self._dimensions = dimensions
-		self._size = _dimensions[0] * _dimensions[1]
-		self._layer_map = lb.build(self._size, self._dimensions, self._radius)
+		self._size = self._dimensions[0] * self._dimensions[1]
+
+		lb = LayerBuilder(self._size, self._dimensions, self._radius)
+		
+		self._layer_map = lb.build(neuron_size)
 
 	def __len__(self):
 		return len(self._layer_map)
@@ -41,10 +43,41 @@ class NeuronLayer(object):
 #
 
 	def weightMatrix(self):
+		"""
+		Return matrix representing the layer by neuron wheights 
+
+		"""
 		new_matrix = np.zeros(self._dimensions)
 
-		for item in 
+		for item in self._layer_map.items():
+			new_matrix[item[0][0]][item[0][1]] = item[1].wheights
+
+		return new_matrix
 
 #
 #	PROPERTIES
 #
+	
+	@property
+	def radius(self):
+		return self._radius
+
+	@radius.setter
+	def radius(self, value):
+		self._radius = value
+
+	@property
+	def dimensions(self):
+		return self._dimensions
+
+	@dimensions.setter
+	def dimensions(self, tuple):
+		self._dimensions = value
+
+	@property
+	def size(self):
+		return self._size
+
+	@size.setter
+	def size(self, value):
+		self._size = value
