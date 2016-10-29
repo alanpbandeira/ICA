@@ -15,7 +15,7 @@ class DataSet(object):
 		return len(self._data)
 
 	def __getitem__(self, position):
-		return self._data[position].data_points
+		return self._data[position]
 
 	def __setitem__(self, key, value):
 		self._data[key] = value

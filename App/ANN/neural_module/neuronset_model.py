@@ -14,7 +14,7 @@ class NeuronLayer(object):
 #	DUNDER METHODS
 #
 
-	def __init__(self, neuron_size, dimensions, n_radius):
+	def __init__(self, neuron_size, dimensions, n_radius, data=None):
 		"""
 		@param: dimensions: Dimensions of the NeuronLayer 
 		indexes (rows, columns);
@@ -27,7 +27,10 @@ class NeuronLayer(object):
 
 		lb = LayerBuilder(self._size, self._dimensions, self._radius)
 		
-		self._layer_map = lb.build(neuron_size)
+		if data is not None:
+			self._layer_map = lb.build(neuron_size, data_set=data)
+		else:
+			self._layer_map = lb.build(neuron_size)
 
 	def __len__(self):
 		return len(self._layer_map)
@@ -47,12 +50,14 @@ class NeuronLayer(object):
 		Return matrix representing the layer by neuron wheights 
 
 		"""
-		new_matrix = np.zeros(self._dimensions)
+		values = []
 
-		for item in self._layer_map.items():
-			new_matrix[item[0][0]][item[0][1]] = item[1].wheights
+		keys = sorted([element for element in self._layer_map.keys()])
 
-		return new_matrix
+		for key in keys:
+			values.append(self._layer_map[key])
+
+		return np.array(values)
 
 #
 #	PROPERTIES

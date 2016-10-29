@@ -1,16 +1,17 @@
 import numpy as np
 
 from ...MathLib.matrix_module import *
+from ...MathLib.gaussian_module import *
 
 
 class Neuron(object):
 	"""
 	docstring for Neuron
 	"""
-
 	_neighbourhood = None
 	_class_id = None
 	_index = None
+
 
 #
 #	DUNDER METHODS
@@ -25,10 +26,12 @@ class Neuron(object):
 		@param: size: Number of weight that will compound the neuron randomly generated
 		@param: range: Tuple of tow values, aa lower bound and an upper bound.
 		"""
+
+		
 		if weight_list is not None:
 			self._weights = weight_list
 		else:
-			self._weights = np.random.uniform(size)
+			self._weights = np.random.uniform(0, 1, size)
 		
 		self._norm = vectorMod(self._weights)		
 
@@ -40,6 +43,9 @@ class Neuron(object):
 
 	def __setitem__(self, key, value):
 		self._weights[key] = value
+
+	def __str__(self):
+		return str(self._weights)
 
 
 #

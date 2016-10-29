@@ -1,6 +1,7 @@
 import numpy as np
 
 from .neuron_model import Neuron
+from ...MathLib.matrix_module import *
 
 
 class LayerBuilder(object):
@@ -21,6 +22,8 @@ class LayerBuilder(object):
 		Select data points to compound the neuronset
 
 		@param: data_set: DataSet Object or array of data Objects.
+		@return: list(): List DS of Neuron objects using data objects
+		as models.
 		"""
 
 		if len(data_set) == self.layer_size:
@@ -43,6 +46,8 @@ class LayerBuilder(object):
 	def genLayerIndexes(self):
 		"""
 		Create matrix-like indexes to the layer with linear complexity.
+		
+		@return: indexes: List of tuples of layer indexes (row, collumns).
 		"""
 
 		indexes = []
@@ -55,46 +60,64 @@ class LayerBuilder(object):
 
 		while x_counter <= self.layer_dimensions[0]:
 			if y_counter <= self.layer_dimensions[1]:
-				indexes.append([x_counter, y_counter])
+				indexes.append((x_counter, y_counter))
 				y_counter += 1
 			else:
+				y_counter = 1
 				x_counter += 1
 
 		return indexes
 
 	def setNeighbours(self, neurons):
 		"""
+		Set the neighbourhood for the given neurons using the
+		layer_raidus parameter of the class.
+
+		@param: neurons: Array of Neuron Objects.
 
 		"""
 
-		for index in range(len(neurons)):
+		for neuron_idx in range(len(neurons)):
 			candidates = []
 
 			for candidate in neurons:
-				if candidate is neurons[index]:
+				if candidate is neurons[neuron_idx]:
 					continue
 				else:
-					p_one = np.array(neurons[index].index)
+					p_one = np.array(neurons[neuron_idx].index)
 					p_two = np.array(candidate.index)
-					if euclidianDist(p_one, p_two) <= self.layer_dimensions:
+					#print (str(p_one) + "\n\n" + str(p_two))
+					if euclidianDist(p_one, p_two) <= self.layer_radius:
 						candidates.append(candidate.index)
 
-			neurons[index].neighbourhood = candidate.copy()
+			neurons[neuron_idx].neighbourhood = candidates.copy()
 
 
-	def build(self, neuron_size):
+	def build(self, neuron_size, data_set=None):
 		"""
-		@param: neuron_size: TODO
+		Creates the maping [neuron_index: Neuron] using the layer parameters
+		of the builder class. Each neuron is set with an index, a class_id	and a list of indexes for neighbourhood.
+
+		@param: neuron_size: Numbers of weights of a Neuron.
+		@return: dict(): Dictionary DS with nuron_index as key a Neuron obj
+		as data.
 		"""
 
 		indexes = self.genLayerIndexes()
-		neurons = [Neuron(neuron_size) for x in range(self.layer_size)]
-		class_ids = range(1, (self.layer_size + 1))
+		layer_ids = list(range(1, (self.layer_size + 1)))
+		
+		if data_set is not None:
+			neurons = [Neuron(weight_list=data) for data in data_set[0:self.layer_size]]
+		else:
+			neurons = [Neuron(size=neuron_size) for x in range(self.layer_size)]
 
-		for idx, c_id in zip(indexes, class_ids):
-			elected_neu = np.random.choice(self.layer_size)
-			neurons[elected_neu].index(idx)
-			neurons[elected_neu].class_id(c_id)
+		for idx in range(len(neurons)):
+			layer_index = np.random.choice(len(indexes))
+			class_index = np.random.choice(len(layer_ids))
+			neurons[idx].index = indexes[layer_index]
+			neurons[idx].class_id = layer_ids[class_index]
+			del indexes[layer_index]
+			del layer_ids[class_index]
 
 		self.setNeighbours(neurons)
 
