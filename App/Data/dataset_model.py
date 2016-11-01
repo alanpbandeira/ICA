@@ -1,6 +1,7 @@
 import numpy as np
 
 from .data_model import DataPoint
+from ..MathLib.matrix_module import * 
 
 
 class DataSet(object):
@@ -8,8 +9,14 @@ class DataSet(object):
 	docstring for DataSet
 	"""
 
-	def __init__(self, file_name):
-		self._data = np.array(self.csvImport(file_name))
+	def __init__(self, file_name=None, raw_data=None):
+		if file_name is not None and raw_data is None:
+			self._data = np.array(self.csvImport(file_name))
+		elif file_name is None and raw_data is not None:
+			self._data = raw_data
+		else:
+			raise ("Only one model of creating datasets can be used!")
+
 
 	def __len__(self):
 		return len(self._data)
@@ -30,4 +37,15 @@ class DataSet(object):
 		return [DataPoint(np.array(line)) for line in raw_data]
 
 	def dataMatrix(self):
+		"""
+		todo
+		"""
 		return np.array([element.data_points for element in self._data])
+
+	def normalize(self):
+		"""
+		todo
+		"""
+		for index in range(len(self._data)):
+			normalized = vectorNorm(self._data[index])
+			self._data[index] = normalized

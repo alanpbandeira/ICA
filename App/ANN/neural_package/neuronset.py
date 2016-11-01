@@ -1,8 +1,8 @@
 import numpy as np
 
-from .neuron_model import Neuron
+from .neuron import Neuron
 from .set_builder import LayerBuilder
-from ...MathLib.matrix_module import euclidianDist
+from ...MathLib.matrix_module import *
 
 
 class NeuronLayer(object):
@@ -53,11 +53,20 @@ class NeuronLayer(object):
 		values = []
 
 		keys = sorted([element for element in self._layer_map.keys()])
-
-		for key in keys:
-			values.append(self._layer_map[key])
+		
+		for line in range(1, (self._dimensions[0] + 1)): 
+			lines = []
+			for column in range(1, (self._dimensions[1] + 1)):
+				if (line, column) in keys:
+					lines.append(self._layer_map[(line, column)])
+			values.append(lines)
 
 		return np.array(values)
+
+	def normalize(self):
+		for neuron in self._layer_map:
+			normalized = vectorNorm(self._layer_map[neuron].weights)
+			self._layer_map[neuron].weights = normalized
 
 #
 #	PROPERTIES

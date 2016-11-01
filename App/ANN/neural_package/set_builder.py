@@ -1,6 +1,6 @@
 import numpy as np
 
-from .neuron_model import Neuron
+from .neuron import Neuron
 from ...MathLib.matrix_module import *
 
 
