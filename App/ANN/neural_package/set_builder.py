@@ -68,7 +68,7 @@ class LayerBuilder(object):
 
     def setNeighbours(self, neurons):
         """
-        Set the neighbourhood for the given neurons using the layer_raidus parameter of the class.
+        Set the neighbourhood for the given neurons using the layer_radius attribute.
 
         @param: neurons: Array of Neuron Objects.
         """

@@ -1,0 +1,5 @@
+mapa topológico
+amostras de treinamento
+normalizar pesos e as amostras
+taxa de aprendizagem
+contador de épocas

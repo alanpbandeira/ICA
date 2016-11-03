@@ -16,7 +16,7 @@ class KMeans(object):
         self.centroids = None
     
     @staticmethod
-    def euclidianDist(point_one, point_two):
+    def euclidian_dist(point_one, point_two):
         """
         @Info: Calculate the euclidian distance between two points.
         @param: point_one :: np.array
@@ -29,14 +29,14 @@ class KMeans(object):
 
         return math.sqrt(d_sum)
 
-    def getCentroids(self):
+    def get_centroids(self):
         """
         @Info: Returns a numpy array of the cntroid points in order of cluster.
         @return: n-dimensional numpy array
         """
         return np.array([point for cluster, point in self.centroids.items()]).reshape(self.n_clusters, 2)
 
-    def setClusterList(self):
+    def set_cluster_list(self):
         """
         @info: Return a list of clusters matching the data sorting.
         @return: data_list :: list object
@@ -45,12 +45,12 @@ class KMeans(object):
         for point in self.data:
             distances = []
             for cluster, centroid in self.centroids.items():
-                distances.append((self.euclidianDist(point, centroid), cluster))
+                distances.append((self.euclidian_dist(point, centroid), cluster))
             data_list.append(min(distances)[1])
 
         return data_list
 
-    def selectRandomCentroids(self):
+    def select_random_centroids(self):
         """
         @Info: Randomly selects n poits for centroids.
         @return: dict :: {cluster: point}
@@ -58,7 +58,7 @@ class KMeans(object):
         centroids = np.random.choice(len(self.data), self.n_clusters)
         return {c: p for p, c in zip([self.data[centroid,:] for centroid in centroids], range(1, self.n_clusters + 1))}
 
-    def setClusters(self):
+    def set_clusters(self):
         """
         @Info: Assigns a list of points to its` respective 
                clusters as a dict structure :: {cluster: [points]}
@@ -73,7 +73,7 @@ class KMeans(object):
             distances = []
             
             for cluster, centroid in self.centroids.items():
-                distances.append((self.euclidianDist(point, centroid), cluster))
+                distances.append((self.euclidian_dist(point, centroid), cluster))
             
             elected = min(distances)
             
@@ -82,7 +82,7 @@ class KMeans(object):
             else:   
                 self.clusters[elected[1]].append(point)
 
-    def calcCentroids(self):
+    def calc_centroids(self):
         """
         @Info: Calculate a new centroid based on the data points of each cluster.
         """
@@ -94,21 +94,21 @@ class KMeans(object):
         @Info: Execute k-means the clustering process.
         @return: List of clusters sorted to match the data set order :: list object. 
         """
-        self.centroids = self.selectRandomCentroids()
+        self.centroids = self.select_random_centroids()
         epochs = 100
         
         # Uncoment the code bellow to get the initial centroids
         #
-        # print(self.getCentroids())
+        # print(self.get_centroids())
 
         while epochs > 0:
             epochs -= 1
             
-            self.setClusters()
-            self.calcCentroids()
+            self.set_clusters()
+            self.calc_centroids()
 
         # Uncoment the code bellow to get the final centroids
         #
-        # print(self.getCentroids())
+        # print(self.get_centroids())
 
-        return self.setClusterList()
+        return self.set_cluster_list()

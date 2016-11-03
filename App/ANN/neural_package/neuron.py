@@ -5,35 +5,34 @@ from ...MathLib.gaussian_module import *
 
 
 class Neuron(object):
+    """
+		Docstring for Neuron
 	"""
-	docstring for Neuron
-	"""
-	_neighbourhood = None
-	_class_id = None
-	_index = None
 
+    _neighbourhood = None
+    _class_id = None
+    _index = None
 
-#
-#	DUNDER METHODS
-#
+    #
+    # DUNDER METHODS
+    #
 
-	def __init__(self, weight_list=None, size=None):
+    def __init__(self, weight_list=None, size=None):
 		"""
-		Class that defines the Neuron object. If weights is given the others 
+			Class that defines the Neuron object. If weights is given the others
 
-		@param: weight_list: 1D numpy array of numeric values, if no data is 
-		passed the neuron will be set with an array of random values
-		@param: size: Number of weight that will compound the neuron randomly generated
-		@param: range: Tuple of tow values, aa lower bound and an upper bound.
+			:param weight_list: 1D numpy array of numeric values, if no data is
+			passed the neuron will be set with an array of random values.
+			:param size: Number of weight that will compound the neuron randomly generated.
 		"""
-
-		
 		if weight_list is not None:
 			self._weights = weight_list
 		else:
 			self._weights = np.random.uniform(0, 1, size)
-		
-		self._norm = vectorMod(self._weights)		
+
+		self._norm = vectorMod(self._weights)
+
+
 
 	def __len__(self):
 		return len(self._weights)
@@ -47,57 +46,53 @@ class Neuron(object):
 	def __str__(self):
 		return str(self._weights)
 
+    #
+    #	CLASS METHODS
+    #
 
-#
-#	CLASS METHODS
-#
-	
-	def activationFunc():
-		pass # to do
+    def activationFunc(self):
+        pass  # to do
 
+    #
+    #	PROPERTIES
+    #
 
-#
-#	PROPERTIES
-#
+    @property
+    def weights(self):
+        return self._weights
 
-	@property
-	def weights(self):
-	 	return self._weights
+    @weights.setter
+    def weights(self, value):
+        self._weights = value
 
-	@weights.setter
-	def weights(self, weights):
-		self._weights = weights
+    @property
+    def norm(self):
+        return self._norm
 
-	@property
-	def norm(self):
-		return self._norm
+    @norm.setter
+    def norm(self, value):
+        self._norm = value
 
-	@norm.setter
-	def norm(self, new_norm):
-		self._norm = new_norm
+    @property
+    def neighbourhood(self):
+        return self._neighbourhood
 
-	@property
-	def neighbourhood(self):
-		return self._neighbourhood
+    @neighbourhood.setter
+    def neighbourhood(self, array):
+        self._neighbourhood = array
 
-	@neighbourhood.setter
-	def neighbourhood(self, new_neighbourhood):
-		self._neighbourhood = new_neighbourhood
+    @property
+    def class_id(self):
+        return self._class_id
 
-	@property
-	def class_id(self):
-		return self._class_id
+    @class_id.setter
+    def class_id(self, value):
+        self._class_id = value
 
-	@class_id.setter
-	def class_id(self, new_id):
-		self._class_id = new_id
+    @property
+    def index(self):
+        return self._index
 
-	@property
-	def index(self):
-		return self._index
-
-	@index.setter
-	def index(self, new_index):
-		self._index = new_index
-
-
+    @index.setter
+    def index(self, value):
+        self._index = value
