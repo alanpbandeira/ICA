@@ -1,7 +1,7 @@
 import numpy as np
 
-from ...MathLib.matrix_module import *
-from ...MathLib.gaussian_module import *
+from ...MathLib.matrix_module import vector_mod
+from ...MathLib.gaussian_module import gaussian_fun
 
 
 class Neuron(object):
@@ -30,7 +30,7 @@ class Neuron(object):
 		else:
 			self._weights = np.random.uniform(0, 1, size)
 
-		self._norm = vectorMod(self._weights)
+		self._norm = vector_mod(self._weights)
 
 
 
@@ -50,7 +50,7 @@ class Neuron(object):
     #	CLASS METHODS
     #
 
-    def activationFunc(self):
+    def actv_function(self, neighbour, learning_rate, sigma, winner=False):
         pass  # to do
 
     #

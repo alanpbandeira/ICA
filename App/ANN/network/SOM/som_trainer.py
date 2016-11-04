@@ -12,7 +12,7 @@ class SOMTrainer(object):
 
     def __init__(self, layer, data, learning_rate):
         self._training_data = data
-        self._neuron_layer = layer
+        self._neuronset = layer
         self._learning_rate = learning_rate
 
     #
@@ -21,18 +21,21 @@ class SOMTrainer(object):
 
     def start_training(self, normalized=True):
         """
-        @param: normalized:
+            Perform training to the neuron set of the ANN
+
+            :param normalized: Boolean value that is set to True if neuron weights
+            and training data should be normalized, or False otherwise.
         """
 
-        print("Starting SOM training")
+        print("Starting " + self.neuronset.network_model() + " training")
 
         # Used to keep track if a significant variation is still
         # happening in the learning process.
-        variation_tracker = [1] * len(self.neuron_layer)
+        variation_tracker = [1] * len(self.neuronset)
         epochs = 0
 
         if normalized:
-            self._neuron_layer.normalize()
+            self._neuronset.normalize()
             self._training_data
 
 
@@ -49,12 +52,12 @@ class SOMTrainer(object):
         self._training_data = data
 
     @property
-    def neuron_layer(self):
-        return self._neuron_layer
+    def neuronset(self):
+        return self._neuronset
 
-    @neuron_layer.setter
-    def neuron_layer(self, layer):
-        self._neuron_layer = layer
+    @neuronset.setter
+    def neuronset(self, layer):
+        self._neuronset = layer
 
     @property
     def learning_rate(self):

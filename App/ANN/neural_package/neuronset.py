@@ -2,7 +2,7 @@ import numpy as np
 
 from .neuron import Neuron
 from .set_builder import LayerBuilder
-from ...MathLib.matrix_module import *
+from ...MathLib.matrix_module import vector_norm
 
 
 class NeuronLayer(object):
@@ -21,6 +21,7 @@ class NeuronLayer(object):
 		@param: n_radius: Neighbourhood radius for each neuron.
 		"""
 
+		self.network = "Kohonen Self-Organizing Maps"
 		self._radius = n_radius
 		self._dimensions = dimensions
 		self._size = self._dimensions[0] * self._dimensions[1]
@@ -45,7 +46,7 @@ class NeuronLayer(object):
 #	CLASS METHODS
 #
 
-	def weightMatrix(self):
+	def weight_matrix(self):
 		"""
 		Return matrix representing the layer by neuron wheights 
 
@@ -65,8 +66,12 @@ class NeuronLayer(object):
 
 	def normalize(self):
 		for neuron in self._layer_map:
-			normalized = vectorNorm(self._layer_map[neuron].weights)
+			normalized = vector_norm(self._layer_map[neuron].weights)
 			self._layer_map[neuron].weights = normalized
+
+
+	def network_model(self):
+		return self.network
 
 #
 #	PROPERTIES

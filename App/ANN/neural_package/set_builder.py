@@ -7,21 +7,26 @@ from ...MathLib.matrix_module import *
 class LayerBuilder(object):
     """docstring for Builder"""
 
+#
+# DUNDER METHODS
+#
+
     def __init__(self, layer_size, layer_dimensions, layer_radius):
         self.layer_radius = layer_radius
         self.layer_dimensions = layer_dimensions
         self.layer_size = layer_size
 
+
 #
 # CLASS METHODS
 #
 
-    def neuronsFromData(self, data_set):
+    def data_neurons(self, data_set):
         """
-        Select data points to compound the neuronset.
+            Select data points to compound the neuronset.
 
-        @param: data_set: DataSet Object or array of data Objects.
-        @return: list(): List DS of Neuron objects using data objects as models.
+            :param data_set: DataSet Object or array of data Objects.
+            :return list(): List DS of Neuron objects using data objects as models.
         """
 
         if len(data_set) == self.layer_size:
@@ -41,11 +46,11 @@ class LayerBuilder(object):
 
         return [Neuron(candidate.data) for candidate in candidates]
 
-    def genLayerIndexes(self):
+    def crt_layer_indexes(self):
         """
-        Create matrix-like indexes to the layer with linear complexity.
+            Create matrix-like indexes to the layer with linear complexity.
 
-        @return: indexes: List of tuples of layer indexes (row, columns).
+            :return indexes: List of tuples of layer indexes (row, columns).
         """
 
         indexes = []
@@ -66,11 +71,11 @@ class LayerBuilder(object):
 
         return indexes
 
-    def setNeighbours(self, neurons):
+    def set_neighbours(self, neurons):
         """
-        Set the neighbourhood for the given neurons using the layer_radius attribute.
+            Set the neighbourhood for the given neurons using the layer_radius attribute.
 
-        @param: neurons: Array of Neuron Objects.
+            :param neurons: Array of Neuron Objects.
         """
 
         for neuron_idx in range(len(neurons)):
@@ -82,22 +87,22 @@ class LayerBuilder(object):
                 else:
                     p_one = np.array(neurons[neuron_idx].index)
                     p_two = np.array(candidate.index)
-                    if euclidianDist(p_one, p_two) <= self.layer_radius:
+                    if euclidian_dist(p_one, p_two) <= self.layer_radius:
                         candidates.append(candidate.index)
 
             neurons[neuron_idx].neighbourhood = candidates.copy()
 
     def build(self, neuron_size, data_set=None):
         """
-        Creates the maping [neuron_index: Neuron] using the layer parameters
-        of the builder class. Each neuron is set with an index, a class_id	and a list of indexes for neighbourhood.
+            Creates the maping [neuron_index: Neuron] using the layer parameters
+            of the builder class. Each neuron is set with an index, a class_id	
+            and a list of indexes for neighbourhood.
 
-        @param: neuron_size: Numbers of weights of a Neuron.
-        @return: dict(): Dictionary DS with nuron_index as key a Neuron obj
-        as data.
+            :param neuron_size: Numbers of weights of a Neuron.
+            :return dict(): Dictionary DS with nuron_index as key a Neuron obj as data.
         """
 
-        indexes = self.genLayerIndexes()
+        indexes = self.crt_layer_indexes()
         layer_ids = list(range(1, (self.layer_size + 1)))
 
         if data_set is not None:
@@ -113,6 +118,6 @@ class LayerBuilder(object):
             del indexes[layer_index]
             del layer_ids[class_index]
 
-        self.setNeighbours(neurons)
+        self.set_neighbours(neurons)
 
         return {neuron.index: neuron for neuron in neurons}
