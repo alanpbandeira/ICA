@@ -51,7 +51,8 @@ class Neuron(object):
 #
 
     def actv_function(self, neighbour, learning_rate, sigma, winner=False):
-        pass  # to do
+        if winner:
+            pass
 
 #
 # PROPERTIES

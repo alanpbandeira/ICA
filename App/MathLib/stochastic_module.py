@@ -1,6 +1,6 @@
 import numpy as np
 
-def set_mean():
+def expected_value():
 	pass
 
 def standart_deviation():
