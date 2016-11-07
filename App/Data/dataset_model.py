@@ -1,7 +1,7 @@
 import numpy as np
 
 from .data_model import DataPoint
-from ..MathLib.matrix_module import * 
+from ..MathLib.matrix_module import vector_norm 
 
 
 class DataSet(object):
@@ -47,5 +47,5 @@ class DataSet(object):
 		todo
 		"""
 		for index in range(len(self._data)):
-			normalized = vectorNorm(self._data[index])
+			normalized = vector_norm(self._data[index])
 			self._data[index] = normalized

@@ -98,7 +98,7 @@ class LayerBuilder(object):
             of the builder class. Each neuron is set with an index, a class_id	
             and a list of indexes for neighbourhood.
 
-            :param neuron_size: Numbers of weights of a Neuron.
+            :param neuron_size: Size of Neuron's weight array.
             :return dict(): Dictionary DS with nuron_index as key a Neuron obj as data.
         """
 

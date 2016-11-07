@@ -2,7 +2,7 @@ import numpy as np
 
 from .neuron import Neuron
 from .set_builder import LayerBuilder
-from ...MathLib.matrix_module import vector_norm
+from ...MathLib.matrix_module import vector_norm, euclidian_dist
 
 
 class NeuronLayer(object):
@@ -46,11 +46,19 @@ class NeuronLayer(object):
 #	CLASS METHODS
 #
 
+	def network_model(self):
+		"""
+
+		"""
+		
+		return self.network
+
 	def weight_matrix(self):
 		"""
 		Return matrix representing the layer by neuron wheights 
 
 		"""
+		
 		values = []
 
 		keys = sorted([element for element in self._layer_map.keys()])
@@ -65,13 +73,31 @@ class NeuronLayer(object):
 		return np.array(values)
 
 	def normalize(self):
+		"""
+
+		"""
 		for neuron in self._layer_map:
 			normalized = vector_norm(self._layer_map[neuron].weights)
 			self._layer_map[neuron].weights = normalized
 
+	def update_neighbourhood(self):
+		"""
+		
+		"""
 
-	def network_model(self):
-		return self.network
+		for idx in self._layer_map:
+			candidates = []
+			for candidate in self._layer_map:
+				if  candidate == idx:
+					continue
+				else:
+					p_one = np.array(idx)
+					p_two = np.array(candidate)
+					if euclidian_dist(p_one, p_two) <= self._radius:
+						candidates.append(candidate)
+			self._layer_map[idx].neighbourhood = candidates.copy()
+
+
 
 #
 #	PROPERTIES

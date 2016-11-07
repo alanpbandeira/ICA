@@ -17,7 +17,7 @@ def vector_mod(array):
     return np.sqrt(sum(array ** 2))
 
 def vector_norm(array):
-    return array / vectorMod(array)
+    return array / vector_mod(array)
 
 def linear_combination(scalar_vector, vector_list):
     """
