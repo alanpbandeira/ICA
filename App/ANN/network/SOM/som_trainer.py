@@ -1,14 +1,14 @@
 import numpy as np
 
-from App.ANN.neural_package.neuron_set import NeuronLayer
-
+from ...neural_package.neuronset import NeuronLayer
+from ....MathLib.matrix_module import euclidian_dist
 
 class SOMTrainer(object):
     """docstring for SOMTrainer"""
 
-#
-# DUNDER METHODS
-#
+    #
+    # DUNDER METHODS
+    #
 
     def __init__(self, layer, data, learning_rate):
         self._training_data = data
@@ -21,10 +21,10 @@ class SOMTrainer(object):
 
     def start_training(self, normalized=True):
         """
-            Perform training to the neuron set of the ANN
+        Perform training to the neuron set of the ANN
 
-            :param normalized: Boolean value that is set to True if neuron weights
-            and training data should be normalized, or False otherwise.
+        :param normalized: Boolean value that is set to True if neuron weights
+        and training data should be normalized, or False otherwise.
         """
 
         print("Starting " + self.neuronset.network_model() + " training")
@@ -38,10 +38,23 @@ class SOMTrainer(object):
             self._neuronset.normalize()
             self._training_data
 
+        for data in self._training_data:
+            winner_dist = None
+            winner = None
+            for index, neuron in self._neuronset.items():
+                neuron_dist = euclidian_dist(data, neuron.weights)
+                if winner_dist is None or neuron_dist < winner_dist:
+                    winner_dist = neuron_dist
+                    winner = index
+                else:
+                    continue
+            
 
-#
-# Properties
-#
+
+
+    #
+    # Properties
+    #
 
     @property
     def training_data(self):

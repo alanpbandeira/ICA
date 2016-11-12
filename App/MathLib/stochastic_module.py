@@ -45,4 +45,3 @@ def standart_deviation(setVariables, probVariables=None):
 	"""
 
 	return math.sqrt(variance(setVariables, probVariables))
-
