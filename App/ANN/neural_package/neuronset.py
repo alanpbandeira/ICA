@@ -10,9 +10,9 @@ class NeuronLayer(object):
 	docstring for NeuronSet
 	"""
 
-#
-#	DUNDER METHODS
-#
+	#
+	#	DUNDER METHODS
+	#
 
 	def __init__(self, neuron_size, dimensions, n_radius, data=None):
 		"""
@@ -42,20 +42,20 @@ class NeuronLayer(object):
 	def __setitem__(self, key, value):
 		self._layer_map[key] = value
 
-#
-#	CLASS METHODS
-#
+	#
+	#	CLASS METHODS
+	#
 
 	def network_model(self):
 		"""
-
+		Return the Network name that uses
 		"""
 		
 		return self.network
 
 	def weight_matrix(self):
 		"""
-		Return matrix representing the layer by neuron wheights 
+		Return a matrix representing the layer by neuron wheights 
 
 		"""
 		
@@ -74,7 +74,7 @@ class NeuronLayer(object):
 
 	def normalize(self):
 		"""
-
+		Normalize the neuron weights
 		"""
 		for neuron in self._layer_map:
 			normalized = vector_norm(self._layer_map[neuron].weights)
@@ -82,7 +82,8 @@ class NeuronLayer(object):
 
 	def update_neighbourhood(self):
 		"""
-		
+		Updates the neighbour list. Should be used when the neighbouhood radius
+		is updated.
 		"""
 
 		for idx in self._layer_map:
@@ -98,10 +99,9 @@ class NeuronLayer(object):
 			self._layer_map[idx].neighbourhood = candidates.copy()
 
 
-
-#
-#	PROPERTIES
-#
+	#
+	#	PROPERTIES
+	#
 	
 	@property
 	def radius(self):
