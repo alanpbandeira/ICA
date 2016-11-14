@@ -10,10 +10,17 @@ class SOMTrainer(object):
     # DUNDER METHODS
     #
 
-    def __init__(self, layer, data, learning_rate):
+    self._trainingEpochs = []
+
+    def __init__(self, layer, data, learningRate):
+        """
+        :param layer: Layer Map of neurons.
+        :param data: Data sample to be used as a training set.
+        :param learningRate: Learning influence over the neural layer. 
+        """
         self._training_data = data
         self._neuronset = layer
-        self._learning_rate = learning_rate
+        self._learningRate = learningRate
 
     #
     # CLASS METHODS
@@ -31,25 +38,43 @@ class SOMTrainer(object):
 
         # Used to keep track if a significant variation is still
         # happening in the learning process.
-        variation_tracker = [1] * len(self.neuronset)
+        variationTracker = [1] * len(self.neuronset)
+        layerKeys = self._neuronset.keys()
         epochs = 0
 
         if normalized:
             self._neuronset.normalize()
-            self._training_data
+            self._training_data.normalize()
 
-        for data in self._training_data:
-            winner_dist = None
-            winner = None
-            for index, neuron in self._neuronset.items():
-                neuron_dist = euclidian_dist(data, neuron.weights)
-                if winner_dist is None or neuron_dist < winner_dist:
-                    winner_dist = neuron_dist
-                    winner = index
-                else:
-                    continue
-            
+        while variationTracker.any():
+            for data in self._training_data:
+                currentNeuronSet = self._neuronset.items()
+                winnerDist = None
+                winner = None
 
+                for layerIndex, neuron in currentNeuronSet:
+                    candidateDist = euclidian_dist(data, neuron.weights)
+                    if winnerDist is None or candidateDist < winnerDist:
+                        winnerDist = candidateDist
+                        winner = layerIndex
+                    else:
+                        continue
+
+                self._neuronset[winner].act_function(data, learningRate, winner=True)
+
+                for neighbour in self._neuronset[winner].neighbourhood:
+                    self._neuronset[neighbour].act_function(data, learningRate)
+
+                # Update the variatonTracker
+                for layerIndex, neuron in currentNeuronSet:
+                    if self._neuronset[layerIndex] != neuron:
+                        continue
+                    else:
+                        variationTracker[layerKeys.index(layerIndex)] = 0
+
+                epochs += 1
+
+            self._trainingEpochs.append(epochs)
 
 
     #
@@ -74,8 +99,12 @@ class SOMTrainer(object):
 
     @property
     def learning_rate(self):
-        return self._learning_rate
+        return self._learningRate
 
     @learning_rate.setter
     def learning_rate(self, rate):
-        self._learning_rate = rate
+        self._learningRate = rate
+
+    @property
+    def training_epochs(self):
+        return self._trainingEpochs

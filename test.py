@@ -7,11 +7,4 @@ data_set.normalize()
 new_layer = NeuronLayer(4, (4, 4), 1.75, data_set)
 new_layer.normalize()
 
-#print(new_layer.weightMatrix())
-print(new_layer[(2, 2)].neighbourhood)
-
-new_layer.radius = 1
-new_layer.update_neighbourhood()
-
-print(new_layer[(2, 2)].neighbourhood)
-# print (type(data_set[:5]))
+print(new_layer.weightMatrix())
