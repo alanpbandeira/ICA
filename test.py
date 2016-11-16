@@ -1,16 +1,19 @@
 import numpy as np
 
-from App.ANN.neural_package.neuronset import NeuronLayer
 from App.Data.dataset_model import DataSet
+from App.ANN.neural_package.neuronset import NeuronLayer
+from App.ANN.network.SOM.som_trainer import SOMTrainer
 
 
 def rand_training_set(dataSet, dataPartition):
 	selectedData = []
-	numElements = np.ceil(len(data) * dataPartition)
+	numElements = np.ceil(len(dataSet) * dataPartition)
 
 	while len(selectedData) < numElements:
 		elected = np.random.choice(len(dataSet))
-		if dataSet[elected] in selectedData:
+		validator =	next((True for elem in selectedData if elem is dataSet[elected]), False)
+		
+		if validator:
 			continue
 		else:
 			selectedData.append(dataSet[elected])
@@ -18,13 +21,18 @@ def rand_training_set(dataSet, dataPartition):
 	return selectedData
 
 
+testDataSet = DataSet("App/Resources/iris.data")
+testDataSet.normalize()
 
+trainingData = rand_training_set(testDataSet, 0.3)
 
-data_set = DataSet("App/Resources/iris.data")
-data_set.normalize()
-new_layer = NeuronLayer(4, (4, 4), 1.75, data_set)
+new_layer = NeuronLayer(4, (4, 4), 1.75)
 new_layer.normalize()
 
-#print(new_layer.weight_matrix())
+#print("Untrained data:\n", new_layer.weight_matrix(), "\n\n")
 
-print (np.random.choice(data_set))
+trainer = SOMTrainer(new_layer, trainingData, 1)
+
+trainer.start_training()
+
+print(new_layer.weight_matrix())

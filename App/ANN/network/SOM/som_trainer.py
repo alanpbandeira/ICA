@@ -10,7 +10,7 @@ class SOMTrainer(object):
     # DUNDER METHODS
     #
 
-    self._trainingEpochs = []
+    _trainingEpochs = []
 
     def __init__(self, layer, data, learningRate):
         """
@@ -26,7 +26,7 @@ class SOMTrainer(object):
     # CLASS METHODS
     #
 
-    def start_training(self, normalized=True):
+    def start_training(self, normalized=False):
         """
         Perform training to the neuron set of the ANN
 
@@ -38,17 +38,17 @@ class SOMTrainer(object):
 
         # Used to keep track if a significant variation is still
         # happening in the learning process.
-        variationTracker = [1] * len(self.neuronset)
-        layerKeys = self._neuronset.keys()
+        variationTracker = np.array([1] * len(self.neuronset))
+        layerKeys = list(self._neuronset.layer_map.keys())
         epochs = 0
 
         if normalized:
             self._neuronset.normalize()
             self._training_data.normalize()
 
-        while variationTracker.any():
+        while variationTracker.all():
             for data in self._training_data:
-                currentNeuronSet = self._neuronset.items()
+                currentNeuronSet = self._neuronset.layer_map.items()
                 winnerDist = None
                 winner = None
 
@@ -60,21 +60,25 @@ class SOMTrainer(object):
                     else:
                         continue
 
-                self._neuronset[winner].act_function(data, learningRate, winner=True)
+                self._neuronset[winner].actv_function(data, self._learningRate, winner=True)
 
                 for neighbour in self._neuronset[winner].neighbourhood:
-                    self._neuronset[neighbour].act_function(data, learningRate)
-
-                # Update the variatonTracker
-                for layerIndex, neuron in currentNeuronSet:
-                    if self._neuronset[layerIndex] != neuron:
-                        continue
-                    else:
-                        variationTracker[layerKeys.index(layerIndex)] = 0
+                    self._neuronset[neighbour].actv_function(data, self._learningRate)
 
                 epochs += 1
+            
+            # Update the variatonTracker
+            for layerIndex, neuron in currentNeuronSet:
+                if self._neuronset[layerIndex] != neuron:
+                    print("no change")
+                    continue
+                else:
+                    variationTracker[layerKeys.index(layerIndex)] = 0
+                    print(variationTracker)
+
 
             self._trainingEpochs.append(epochs)
+        print(self.training_epochs)
 
 
     #

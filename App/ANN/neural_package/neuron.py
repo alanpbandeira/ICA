@@ -38,8 +38,6 @@ class Neuron(object):
 
         self._norm = vector_mod(self._weights)
 
-
-
     def __len__(self):
     	return len(self._weights)
 

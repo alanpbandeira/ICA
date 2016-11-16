@@ -104,6 +104,10 @@ class NeuronLayer(object):
 	#
 	
 	@property
+	def layer_map(self):
+		return self._layer_map
+
+	@property
 	def radius(self):
 		return self._radius
 
