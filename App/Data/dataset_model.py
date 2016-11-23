@@ -17,7 +17,6 @@ class DataSet(object):
 		else:
 			raise ("Only one model of creating datasets can be used!")
 
-
 	def __len__(self):
 		return len(self._data)
 
@@ -49,3 +48,7 @@ class DataSet(object):
 		for index in range(len(self._data)):
 			normalized = vector_norm(self._data[index])
 			self._data[index] = normalized
+
+	@property
+	def data(self):
+		return self._data

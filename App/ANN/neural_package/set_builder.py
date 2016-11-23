@@ -11,10 +11,11 @@ class LayerBuilder(object):
 # DUNDER METHODS
 #
 
-    def __init__(self, layer_size, layer_dimensions, layer_radius):
+    def __init__(self, layer_size, layer_dimensions, layer_radius, data_type):
         self.layer_radius = layer_radius
         self.layer_dimensions = layer_dimensions
         self.layer_size = layer_size
+        self.data_type = data_type
 
 
 #
@@ -73,9 +74,9 @@ class LayerBuilder(object):
 
     def set_neighbours(self, neurons):
         """
-            Set the neighbourhood for the given neurons using the layer_radius attribute.
+        Set the neighbourhood for the given neurons using the layer_radius attribute.
 
-            :param neurons: Array of Neuron Objects.
+        :param neurons: Array of Neuron Objects.
         """
 
         for neuron_idx in range(len(neurons)):
@@ -94,21 +95,22 @@ class LayerBuilder(object):
 
     def build(self, neuron_size, data_set=None):
         """
-            Creates the maping [neuron_index: Neuron] using the layer parameters
-            of the builder class. Each neuron is set with an index, a class_id	
-            and a list of indexes for neighbourhood.
+        Creates the maping [neuron_index: Neuron] using the layer parameters
+        of the builder class. Each neuron is set with an index, a class_id
+        and a list of indexes for neighbourhood.
 
-            :param neuron_size: Size of Neuron's weight array.
-            :return dict(): Dictionary DS with nuron_index as key a Neuron obj as data.
+        :param neuron_size: Size of Neuron's weight array.
+        :return dict(): Dictionary DS with nuron_index as key a Neuron obj as data.
         """
 
+        print("\n[Building neuronal layer]\n")
         indexes = self.crt_layer_indexes()
         layer_ids = list(range(1, (self.layer_size + 1)))
 
         if data_set is not None:
             neurons = [Neuron(weight_list=data) for data in data_set[0:self.layer_size]]
         else:
-            neurons = [Neuron(size=neuron_size) for x in range(self.layer_size)]
+            neurons = [Neuron(size=neuron_size, data_type=self.data_type) for x in range(self.layer_size)]
 
         for idx in range(len(neurons)):
             layer_index = np.random.choice(len(indexes))

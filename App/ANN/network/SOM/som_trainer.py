@@ -16,7 +16,7 @@ class SOMTrainer(object):
         """
         :param layer: Layer Map of neurons.
         :param data: Data sample to be used as a training set.
-        :param learningRate: Learning influence over the neural layer. 
+        :param learningRate: Learning influence over the neural layer.
         """
         self._training_data = data
         self._neuronset = layer
@@ -34,7 +34,7 @@ class SOMTrainer(object):
         and training data should be normalized, or False otherwise.
         """
 
-        print("Starting " + self.neuronset.network_model() + " training")
+        print("\n[Starting " + self.neuronset.network_model() + " training]\n")
 
         # Used to keep track if a significant variation is still
         # happening in the learning process.
@@ -46,13 +46,17 @@ class SOMTrainer(object):
             self._neuronset.normalize()
             self._training_data.normalize()
 
-        while variationTracker.all():
+        while variationTracker.any():
+            currentNeuronSet = self._neuronset.layer_map.copy().items()
+
             for data in self._training_data:
-                currentNeuronSet = self._neuronset.layer_map.items()
                 winnerDist = None
                 winner = None
 
-                for layerIndex, neuron in currentNeuronSet:
+                # debug copy
+                # d_copy = self._neuronset.weight_matrix().copy()
+
+                for layerIndex, neuron in sorted(currentNeuronSet):
                     candidateDist = euclidian_dist(data, neuron.weights)
                     if winnerDist is None or candidateDist < winnerDist:
                         winnerDist = candidateDist
@@ -62,23 +66,27 @@ class SOMTrainer(object):
 
                 self._neuronset[winner].actv_function(data, self._learningRate, winner=True)
 
+
                 for neighbour in self._neuronset[winner].neighbourhood:
                     self._neuronset[neighbour].actv_function(data, self._learningRate)
 
+                # debug print and break
+                # print ("\n\n", self._neuronset[winner].neighbourhood)
+                # print (self._neuronset.weight_matrix() - d_copy)
+                # break
+
                 epochs += 1
-            
+
             # Update the variatonTracker
             for layerIndex, neuron in currentNeuronSet:
-                if self._neuronset[layerIndex] != neuron:
-                    print("no change")
-                    continue
+                checker = self._neuronset[layerIndex].weights - neuron.weights
+                if checker.any():
+                    variationTracker[layerKeys.index(layerIndex)] = 1
                 else:
                     variationTracker[layerKeys.index(layerIndex)] = 0
-                    print(variationTracker)
 
 
             self._trainingEpochs.append(epochs)
-        print(self.training_epochs)
 
 
     #

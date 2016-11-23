@@ -22,7 +22,7 @@ class Neuron(object):
     # DUNDER METHODS
     #
 
-    def __init__(self, weight_list=None, size=None):
+    def __init__(self, weight_list=None, size=None, data_type="continuous"):
         """
         Class that defines the Neuron object. If weights is given the others
 
@@ -30,11 +30,17 @@ class Neuron(object):
         passed the neuron will be set with an array of random values.
 
         :param size: Number of weight that will compound the neuron randomly generated.
+        :param data_type: 
         """
         if weight_list is not None:
         	self._weights = weight_list
         else:
-        	self._weights = np.random.uniform(0, 1, size)
+            if data_type == "discrete":
+                self._weights = np.random.randint(0, 10, size)
+            elif data_type == "continuous":
+                self._weights = np.random.uniform(0, 1, size)
+            else:
+                raise ValueError("Data type should be continuous or discrete")
 
         self._norm = vector_mod(self._weights)
 

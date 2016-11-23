@@ -4,28 +4,36 @@ class DataPoint(object):
 	"""
 	docstring for DataPoint
 	"""
-	
-	_class_id = None
-	
-	def __init__(self, data_array):
-		self._data_points = data_array
+
+	_classId = None
+
+	def __init__(self, dataArray):
+		self._dataPoints = dataArray
 
 	def __getitem__(self, position):
-		return self._data_points[position]
+		return self._dataPoints[position]
 
 	def __setitem__(self, key, value):
-		self._data_points[key] = value
+		self._dataPoints[key] = value
 
 	def __len__(self):
-		return len(self._data_points)
+		return len(self._dataPoints)
 
 	def __repr__(self):
-		return str(self._data_points)
+		return str(self._dataPoints)
 
 	@property
 	def data_points(self):
-		return self._data_points
+		return self._dataPoints
 
 	@data_points.setter
-	def data_points(self, data_array):
-		self._data_points = data_array
+	def data_points(self, dataArray):
+		self._dataPoints = dataArray
+
+	@property
+	def class_id(self):
+		return self._classId
+
+	@class_id.setter
+	def class_id(self, newId):
+		self._classId = newId
