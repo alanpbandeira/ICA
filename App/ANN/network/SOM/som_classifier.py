@@ -8,12 +8,14 @@ class SOMClassifier(object):
         self.dataSet = dataSet
         self.neuronLayer = neuronLayer
 
-    def classify(self):
+    def neuron_class_classifier(self):
         for data in self.dataSet:
             currentDist = None
+            candidate_neuron = None
             for neuron in self.neuronLayer:
                 candidateDist = euclidian_dist(data.data_points, neuron.weights)
                 if currentDist is None or candidateDist < currentDist:
                     currentDist = candidateDist
+                    candidate_neuron = neuron
 
-            data.class_id = nueron.class_id
+            data.class_id = candidate_neuron.id

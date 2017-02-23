@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 from App.Data.dataset_model import DataSet
 from App.ANN.neural_package.neuronset import NeuronLayer
@@ -27,6 +28,8 @@ def rand_training_set(dataSet, dataPartition):
 # color dataset
 flatData = np.random.randint(0, 256, 120000)
 brgDataSet = flatData.reshape(200, 200, 3)
+cv2.imwrite("test.png", brgDataSet)
+
 print("init data creation")
 data = [brgDataSet[x][y] for x in range(brgDataSet.shape[0])
 							for y in range(brgDataSet.shape[1])]
@@ -39,7 +42,7 @@ testDataSet = DataSet(raw_data=data)
 trainingData = rand_training_set(testDataSet, 0.3)
 
 # Create the neuron layer
-new_layer = NeuronLayer(3, (4, 4), 1, data_type="discrete")
+new_layer = NeuronLayer(3, (15, 15), 1, data_type="discrete")
 print ("\nUntrained layer\n", new_layer.weight_matrix())
 
 trainer = SOMTrainer(new_layer, trainingData, 1)
