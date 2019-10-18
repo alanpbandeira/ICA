@@ -2,7 +2,7 @@ import math
 import matplotlib.pyplot as plt
 from problem import Problem
 
-#plt.style.use('ggplot')
+# plt.style.use('ggplot')
 
 
 class Plotter():

@@ -3,6 +3,7 @@ from Plotter.plotter import Plotter
 from simulatedAnnealing import SimulatedAnnealing
 import matplotlib.pyplot as plt
 
+
 my_problem = Problem(True, (0, 1))
 problem_solver = SimulatedAnnealing(my_problem, 0.001)
 
